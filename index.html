@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тестовое задание — AI-Growth Manager | Кожевников Артём × StudyWorld</title>
+  <meta name="description" content="Тестовое задание на позицию AI-Growth Manager в StudyWorld. Кожевников Артём.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return;}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    // TODO: замени 00000000 на свой номер счётчика Яндекс.Метрики
+    ym(00000000, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/00000000" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+  <style>
+    /* ═══════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════ */
+    :root {
+      --lime: #d0e100;
+      --lime-20: rgba(208,225,0,.2);
+      --lime-10: rgba(208,225,0,.1);
+      --lime-05: rgba(208,225,0,.05);
+      --navy: #08345b;
+      --navy-50: rgba(8,52,91,.5);
+      --red: #ed1834;
+      --red-20: rgba(237,24,52,.2);
+      --bg: #060609;
+      --bg2: #0c0c12;
+      --card: #101018;
+      --card-hover: #16161f;
+      --surface: #1a1a24;
+      --text: #e4e4ec;
+      --text2: #9898b0;
+      --text3: #5c5c78;
+      --border: rgba(255,255,255,.06);
+      --border2: rgba(255,255,255,.1);
+      --font: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --ease: cubic-bezier(.16,1,.3,1);
+      --ease-bounce: cubic-bezier(.34,1.56,.64,1);
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      cursor: none;
+    }
+
+    @media (pointer: coarse) { body { cursor: auto; } }
+
+    ::selection { background: var(--lime); color: var(--bg); }
+
+    a { color: var(--lime); text-decoration: none; }
+
+    /* ═══════════════════════════════════════
+       CUSTOM CURSOR
+    ═══════════════════════════════════════ */
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--lime);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: width .3s var(--ease), height .3s var(--ease), border-color .3s, background .3s, transform .3s var(--ease);
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+    }
+
+    .cursor.hovering {
+      width: 50px;
+      height: 50px;
+      background: var(--lime);
+      border-color: var(--lime);
+    }
+
+    .cursor-dot {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      background: var(--lime);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
+
+    @media (pointer: coarse) { .cursor, .cursor-dot { display: none; } }
+
+    /* ═══════════════════════════════════════
+       NOISE OVERLAY
+    ═══════════════════════════════════════ */
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      pointer-events: none;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    /* ═══════════════════════════════════════
+       CANVAS BG
+    ═══════════════════════════════════════ */
+    #particleCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════
+       SCROLL PROGRESS
+    ═══════════════════════════════════════ */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--lime);
+      z-index: 10000;
+      transform-origin: left;
+      will-change: transform;
+    }
+
+    /* ═══════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0 clamp(1.5rem, 4vw, 3rem);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(6,6,9,.6);
+      backdrop-filter: blur(24px) saturate(1.4);
+      -webkit-backdrop-filter: blur(24px) saturate(1.4);
+      border-bottom: 1px solid var(--border);
+      transition: transform .4s var(--ease);
+    }
+
+    .nav.hide { transform: translateY(-100%); }
+
+    .nav__left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav__photo {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border2);
+    }
+
+    .nav__name {
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text2);
+      letter-spacing: -.01em;
+    }
+
+    .nav__name span { color: var(--lime); }
+
+    .nav__links {
+      display: flex;
+      gap: .25rem;
+      list-style: none;
+    }
+
+    .nav__links a {
+      color: var(--text3);
+      font-size: .78rem;
+      font-weight: 500;
+      padding: .4rem .75rem;
+      border-radius: 6px;
+      transition: color .2s, background .2s;
+    }
+
+    .nav__links a:hover, .nav__links a.active {
+      color: var(--text);
+      background: rgba(255,255,255,.05);
+    }
+
+    .nav__burger {
+      display: none;
+      background: none;
+      border: none;
+      padding: 4px;
+      cursor: none;
+    }
+
+    .nav__burger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text);
+      margin: 5px 0;
+      transition: .3s;
+    }
+
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: rgba(6,6,9,.95);
+        backdrop-filter: blur(24px);
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: .5rem;
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-120%);
+        transition: transform .4s var(--ease);
+      }
+      .nav__links.open { transform: translateY(0); }
+      .nav__burger { display: block; }
+    }
+
+    /* ═══════════════════════════════════════
+       LAYOUT
+    ═══════════════════════════════════════ */
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    section { padding: 5rem 0; }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 60px;
+      position: relative;
+    }
+
+    .hero__content { max-width: 720px; }
+
+    .hero__eyebrow {
+      font-family: var(--mono);
+      font-size: .75rem;
+      font-weight: 500;
+      color: var(--text3);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp .8s var(--ease) .2s forwards;
+    }
+
+    .hero__title {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -.04em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp .8s var(--ease) .4s forwards;
+    }
+
+    .hero__title .glow {
+      background: linear-gradient(135deg, var(--lime), #e8ff30, var(--lime));
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeUp .8s var(--ease) .4s forwards, gradientShift 4s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero__sub {
+      font-size: 1.1rem;
+      color: var(--text2);
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      animation: fadeUp .8s var(--ease) .6s forwards;
+    }
+
+    .hero__cta {
+      display: flex;
+      gap: .75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .8s var(--ease) .8s forwards;
+    }
+
+    .hero__scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: fadeUp .8s var(--ease) 1.2s forwards;
+    }
+
+    .hero__scroll svg {
+      width: 20px;
+      height: 20px;
+      color: var(--text3);
+      animation: bounce 2s ease infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(8px); }
+      60% { transform: translateY(4px); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════════ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .65rem 1.4rem;
+      border-radius: 10px;
+      font-size: .85rem;
+      font-weight: 600;
+      font-family: var(--font);
+      cursor: none;
+      border: none;
+      transition: all .3s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn--primary {
+      background: var(--lime);
+      color: var(--bg);
+    }
+
+    .btn--primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,.3) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform .6s;
+    }
+
+    .btn--primary:hover::before { transform: translateX(100%); }
+
+    .btn--primary:hover {
+      box-shadow: 0 0 40px rgba(208,225,0,.3);
+      transform: translateY(-2px);
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--text2);
+      border: 1px solid var(--border2);
+    }
+
+    .btn--ghost:hover {
+      border-color: var(--lime);
+      color: var(--lime);
+      transform: translateY(-2px);
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION HEADERS
+    ═══════════════════════════════════════ */
+    .q-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .q-header__num {
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: .75rem;
+    }
+
+    .q-header__title {
+      font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.2;
+    }
+
+    /* ═══════════════════════════════════════
+       REVEAL
+    ═══════════════════════════════════════ */
+    .rv {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
+    }
+
+    .rv.vis {
+      opacity: 1;
+      transform: none;
+    }
+
+    .rv-d1 { transition-delay: .08s; }
+    .rv-d2 { transition-delay: .16s; }
+    .rv-d3 { transition-delay: .24s; }
+    .rv-d4 { transition-delay: .32s; }
+
+    /* ═══════════════════════════════════════
+       PROSE (full-text answers)
+    ═══════════════════════════════════════ */
+    .prose { max-width: 720px; }
+
+    .prose h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      margin-top: 2.5rem;
+      margin-bottom: .75rem;
+      color: var(--text);
+    }
+
+    .prose h3:first-child { margin-top: 0; }
+
+    .prose p {
+      color: var(--text2);
+      margin-bottom: 1.25rem;
+      font-size: .95rem;
+      line-height: 1.85;
+    }
+
+    .prose strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .prose .accent {
+      color: var(--lime);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════
+       GLOW CARD — animated gradient border
+    ═══════════════════════════════════════ */
+    .glow-card {
+      position: relative;
+      border-radius: 20px;
+      padding: 2px;
+      background: var(--border);
+      transition: transform .4s var(--ease);
+    }
+
+    .glow-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 2px;
+      background: conic-gradient(from var(--angle, 0deg), transparent 40%, var(--lime) 50%, transparent 60%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity .5s;
+      animation: rotateGlow 4s linear infinite;
+    }
+
+    .glow-card:hover::before { opacity: 1; }
+    .glow-card:hover { transform: translateY(-4px); }
+
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes rotateGlow {
+      to { --angle: 360deg; }
+    }
+
+    .glow-card__inner {
+      background: var(--card);
+      border-radius: 18px;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════════════
+       TECH TAGS
+    ═══════════════════════════════════════ */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin: 1rem 0;
+    }
+
+    .tag {
+      padding: .25rem .65rem;
+      border-radius: 6px;
+      font-size: .72rem;
+      font-weight: 600;
+      font-family: var(--mono);
+      background: var(--lime-10);
+      color: var(--lime);
+      border: 1px solid var(--lime-20);
+    }
+
+    .tag--navy {
+      background: var(--navy-50);
+      color: var(--text);
+      border-color: rgba(8,52,91,.8);
+    }
+
+    /* ═══════════════════════════════════════
+       PROJECT MINI-CARDS
+    ═══════════════════════════════════════ */
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .mini-card {
+      padding: 1.25rem;
+      border-radius: 14px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      transition: border-color .3s, transform .3s var(--ease), box-shadow .3s;
+      position: relative;
+    }
+
+    .mini-card:hover {
+      border-color: var(--lime-20);
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(0,0,0,.4);
+    }
+
+    .mini-card__title {
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: .4rem;
+    }
+
+    .mini-card__desc {
+      font-size: .82rem;
+      color: var(--text2);
+      line-height: 1.7;
+      margin-bottom: .75rem;
+    }
+
+    .mini-card__link {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--lime);
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+    }
+
+    .mini-card__link:hover .arrow { transform: translateX(3px); }
+    .arrow { transition: transform .2s; display: inline-block; }
+
+    /* ═══════════════════════════════════════
+       MVP CONCEPT — full-width accent block
+    ═══════════════════════════════════════ */
+    .concept-hero {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+      background: linear-gradient(135deg, var(--navy) 0%, #041525 100%);
+      padding: clamp(2rem, 5vw, 3.5rem);
+    }
+
+    .concept-hero::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: var(--lime);
+      filter: blur(180px);
+      opacity: .08;
+      top: -100px;
+      right: -100px;
+    }
+
+    .concept-hero__name {
+      font-family: var(--mono);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
+    }
+
+    .concept-hero__name em {
+      font-style: normal;
+      color: var(--lime);
+    }
+
+    .concept-hero__tagline {
+      font-size: 1.05rem;
+      color: var(--text2);
+      margin-top: .5rem;
+    }
+
+    /* ═══════════════════════════════════════
+       FLOW STEPS
+    ═══════════════════════════════════════ */
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: .75rem;
+      margin: 1.5rem 0;
+    }
+
+    .flow__step {
+      padding: 1.25rem;
+      border-radius: 14px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: border-color .3s, transform .3s var(--ease);
+    }
+
+    .flow__step:hover {
+      border-color: var(--lime-20);
+      transform: translateY(-3px);
+    }
+
+    .flow__num {
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--lime);
+      margin-bottom: .4rem;
+    }
+
+    .flow__text {
+      font-size: .82rem;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════
+       METRIC PILLS
+    ═══════════════════════════════════════ */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: .75rem;
+      margin: 1.5rem 0;
+    }
+
+    .metric {
+      padding: 1.2rem;
+      border-radius: 14px;
+      background: var(--lime-05);
+      border: 1px solid var(--lime-20);
+      text-align: center;
+    }
+
+    .metric__val {
+      font-family: var(--mono);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--lime);
+    }
+
+    .metric__label {
+      font-size: .72rem;
+      color: var(--text2);
+      margin-top: .2rem;
+    }
+
+    /* ═══════════════════════════════════════
+       AGENT CARDS — 3D tilt
+    ═══════════════════════════════════════ */
+    .agent-stack { display: grid; gap: 1.5rem; }
+
+    .agent {
+      border-radius: 20px;
+      padding: 2px;
+      background: var(--border);
+      transition: transform .4s var(--ease), box-shadow .4s;
+      will-change: transform;
+      /* 3d tilt handled by JS */
+      transform-style: preserve-3d;
+      perspective: 800px;
+    }
+
+    .agent:hover { box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+
+    .agent__inner {
+      background: var(--card);
+      border-radius: 18px;
+      padding: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    .agent__head {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .agent__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .agent__icon--1 { background: var(--lime-10); border: 1px solid var(--lime-20); }
+    .agent__icon--2 { background: var(--navy-50); border: 1px solid rgba(8,52,91,.8); }
+    .agent__icon--3 { background: var(--red-20); border: 1px solid rgba(237,24,52,.3); }
+
+    .agent__title {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .agent__body p {
+      font-size: .9rem;
+      color: var(--text2);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    .agent__body p:last-child { margin-bottom: 0; }
+
+    .agent__body strong { color: var(--text); font-weight: 600; }
+
+    .agent__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .6rem;
+      margin-top: 1rem;
+    }
+
+    .agent__detail {
+      padding: .75rem;
+      border-radius: 10px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+    }
+
+    .agent__detail-label {
+      font-size: .65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text3);
+      margin-bottom: .2rem;
+    }
+
+    .agent__detail-value {
+      font-size: .8rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 640px) {
+      .agent__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    .footer {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    .footer__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer__left {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .footer__photo {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .footer__text {
+      font-size: .8rem;
+      color: var(--text3);
+    }
+
+    .footer__links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer__links a {
+      color: var(--text3);
+      font-size: .8rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .footer__links a:hover { color: var(--lime); }
+
+    /* ═══════════════════════════════════════
+       SEPARATOR GLOW LINE
+    ═══════════════════════════════════════ */
+    .glow-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--lime-20), var(--lime), var(--lime-20), transparent);
+      margin: 1rem 0;
+      opacity: .5;
+    }
+
+    /* ═══════════════════════════════════════
+       COLLAPSIBLE
+    ═══════════════════════════════════════ */
+    .collapsible-trigger {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      cursor: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding: .5rem 0;
+      width: 100%;
+      text-align: left;
+      transition: color .2s;
+    }
+
+    .collapsible-trigger:hover { color: var(--lime); }
+
+    .collapsible-trigger .chevron {
+      transition: transform .3s var(--ease);
+      flex-shrink: 0;
+    }
+
+    .collapsible-trigger.open .chevron {
+      transform: rotate(90deg);
+    }
+
+    .collapsible-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height .5s var(--ease), opacity .3s;
+      opacity: 0;
+    }
+
+    .collapsible-body.open {
+      max-height: 2000px;
+      opacity: 1;
+    }
+
+    /* ═══════════════════════════════════════
+       PRINT
+    ═══════════════════════════════════════ */
+    @media print {
+      .nav, .noise, #particleCanvas, .scroll-progress, .cursor, .cursor-dot { display: none; }
+      body { background: #fff; color: #000; cursor: auto; }
+      section { padding: 1.5rem 0; }
+      .glow-card::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- FX layers -->
+  <canvas id="particleCanvas"></canvas>
+  <div class="noise"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__left">
+      <img src="Assets/me.png" alt="" class="nav__photo" width="32" height="32">
+      <div class="nav__name">Кожевников Артём <span>/ StudyWorld</span></div>
+    </div>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#q1">Проекты</a></li>
+      <li><a href="#q2">MVP</a></li>
+      <li><a href="#q3">AI-агенты</a></li>
+    </ul>
+    <button class="nav__burger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" id="top">
+    <div class="hero__content">
+      <div class="hero__eyebrow">Тестовое задание</div>
+      <h1 class="hero__title">
+        <span class="glow">AI-Growth</span><br>Manager
+      </h1>
+      <p class="hero__sub">Три вопроса. Реальные проекты, концепция MVP и AI-агенты для CEO. Кожевников Артём × StudyWorld.</p>
+      <div class="hero__cta">
+        <a href="#q1" class="btn btn--primary">Читать ответы</a>
+        <a href="https://t.me/temaaako" target="_blank" class="btn btn--ghost">Telegram</a>
+        <a href="https://spb.hh.ru/resume/b80b3ca9ff101fb3e20039ed1f616856674441" target="_blank" class="btn btn--ghost">Резюме</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ══════════ Q1: PROJECTS ══════════ -->
+  <section id="q1">
+    <div class="wrap">
+      <div class="q-header rv">
+        <div class="q-header__num">// Вопрос 01</div>
+        <h2 class="q-header__title">MVP или AI-проект, который я сделал</h2>
+      </div>
+
+      <!-- Project Man AI -->
+      <div class="glow-card rv">
+        <div class="glow-card__inner">
+          <h3 style="font-size:1.35rem;font-weight:800;margin-bottom:1rem;letter-spacing:-.02em">Project Man AI</h3>
+          <p style="color:var(--text2);font-size:.72rem;font-family:var(--mono);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1.25rem;color:var(--lime)">Персональный AI-проджект-менеджер в Telegram</p>
+
+          <div class="prose">
+            <h3>Что это за продукт и какую проблему он решал</h3>
+            <p>Project Man AI — это Telegram-бот, который работает как персональный проджект-менеджер с настраиваемым характером. Идея родилась из личной боли: когда работаешь на себе или удалённо, некому контролировать задачи и дедлайны. Таск-трекеры — пассивные списки, они не пинают. Project Man решает это: бот живёт в чате, у него есть характер (от мягкого ментора до жёсткого руководителя), и он сам выбирает момент, чтобы написать и спросить про прогресс. Продукт именно для людей, которым важно, чтобы над ними кто-то стоял и требовал, даже когда работа самостоятельная.</p>
+            <p>Бот сам пишет: <em>«Ты обещал закончить макет к пятнице. Сегодня четверг. Как дела?»</em> Если срываешь дедлайн — нужно объяснить, что пошло не так. Плюс я заложил интеграцию с Jira и Trello через API, чтобы бот подтягивал реальные задачи.</p>
+
+            <h3>Стек</h3>
+            <div class="tags">
+              <span class="tag">Python / aiogram</span>
+              <span class="tag">Antigravity</span>
+              <span class="tag">LLM API</span>
+              <span class="tag">Jira / Trello API</span>
+              <span class="tag">SQLite</span>
+              <span class="tag">OpenClaw</span>
+              <span class="tag--navy tag">Vibe Coding</span>
+            </div>
+
+            <h3>Сроки</h3>
+            <p>Рабочий прототип собрал за <span class="accent">1 день</span> вайб кодингом. Бот умел принимать задачи, назначать дедлайны и отвечать в характере. Ещё пару дней ушло на доработку логики уведомлений и промптов для разных «персонажей».</p>
+
+            <h3>Сложности</h3>
+            <p>Управление контекстным окном — нужно было, чтобы бот помнил историю задач, но не вылетал за лимит токенов. Решил через суммаризацию старых сообщений. Параллельно пришлось подбирать оптимальное количество токенов на запрос, чтобы не разориться на API — баланс между качеством ответов и стоимостью.</p>
+            <p>Отказоустойчивость: API нейронок периодически отваливается, и если бот в этот момент должен был напомнить про дедлайн — пользователь ничего не получит. Пришлось закладывать фолбэк на другую модель, ретраи и очередь отложенных сообщений.</p>
+            <p>Ну и баланс тона в промптах: «жёсткий режим» должен мотивировать, а не бесить — пришлось итерировать.</p>
+
+            <h3>Выводы</h3>
+            <p>Вайб кодинг реально позволяет выкатить MVP за день, но от прототипа до продукта есть ощутимый разрыв. Самое ценное в продукте — не AI-ответы, а логика «когда и зачем писать пользователю». Это именно продуктовая логика, а не промпт-инжиниринг.</p>
+
+            <h3>Что нужно доделать, чтобы MVP начал приносить деньги</h3>
+            <p>Подключить платный AI-бэкенд и протестировать на реальной когорте 20–30 человек. Добавить freemium: бесплатно базовый функционал (3 задачи, стандартный персонаж), расширенный по подписке. Провести CustDev, чтобы понять, за какую конкретно фичу люди готовы платить. Запустить аналитику: retention D1/D7, количество выполненных задач в срок vs просроченных.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other projects -->
+      <h3 style="font-size:1.1rem;font-weight:700;margin-top:3rem;margin-bottom:.5rem" class="rv">Другие проекты</h3>
+      <p style="color:var(--text2);font-size:.9rem;margin-bottom:.5rem" class="rv">Общее для всех — привычка делать быстро, считать метрики и проверять гипотезы на реальных пользователях.</p>
+
+      <div class="mini-grid rv">
+        <div class="mini-card">
+          <div class="mini-card__title">YOKI Travel</div>
+          <div class="mini-card__desc">Стартап при ИТМО. AI-планировщик путешествий: агрегация информации, AI-маршруты, комьюнити. Моя роль — продуктовая часть и помощь в разработке MVP (Telegram-бот + мини-апп).</div>
+          <a href="https://t.me/Yokitripbot" target="_blank" class="mini-card__link">Открыть бота <span class="arrow">&rarr;</span></a>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card__title">Хайтейл-кликер</div>
+          <div class="mini-card__desc">HTML/CSS/JS, полный цикл от прототипа до релиза и прохождения модерации на Яндекс Играх за неделю вайб кодингом. Урок: при вайб кодинге многое хардкодится, и потом локализация становится больно.</div>
+          <a href="https://yandex.ru/games/app/454336?draft=true&lang=ru" target="_blank" class="mini-card__link">Играть <span class="arrow">&rarr;</span></a>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card__title">Кликер с Лабубу</div>
+          <div class="mini-card__desc">Unity, C# — <strong style="color:var(--lime)">500 DAU</strong>, работающий продукт с реальной аудиторией и аналитикой.</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card__title">Роблокс-лайк конструктор</div>
+          <div class="mini-card__desc">Unity, C# — доработал готовый движок до игры-конструктора, где пользователи могут строить свои миры. Аналитика настроена.</div>
+          <a href="https://yandex.ru/games/app/ukradi-99-nochei-ne-budi-olenia-474725?lang=ru" target="_blank" class="mini-card__link">Играть <span class="arrow">&rarr;</span></a>
+        </div>
+        <div class="mini-card">
+          <div class="mini-card__title">2048 в Telegram</div>
+          <div class="mini-card__desc">Один из первых экспериментов с вайб кодингом — Mini App в Telegram.</div>
+          <a href="https://t.me/ZOAB_GAME_BOT/birds2048" target="_blank" class="mini-card__link">Открыть <span class="arrow">&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ Q2: MVP ══════════ -->
+  <section id="q2">
+    <div class="wrap">
+      <div class="q-header rv">
+        <div class="q-header__num">// Вопрос 02</div>
+        <h2 class="q-header__title">MVP: AI-ассистент для соискателей</h2>
+      </div>
+
+      <div class="concept-hero rv">
+        <div class="concept-hero__name">v<em>JOBiv</em>AI</div>
+        <div class="concept-hero__tagline">Персональный радар вакансий в Telegram</div>
+      </div>
+
+      <div class="prose rv">
+        <h3>Ключевая проблема</h3>
+        <p>Вакансии разбросаны по куче источников: hh.ru, сотни Telegram-каналов, Habr Career, LinkedIn, Twitter/X. Следить за всеми вручную — отдельная задача. На hh.ru конкуренция огромная, многие отклики не просматриваются. В Telegram одна и та же вакансия дублируется в 5–10 каналов. Плюс сам процесс поиска стрессовый, люди откладывают отклики.</p>
+        <p>Это нельзя решить запросом в чат с нейронкой. Нейронка не парсит вакансии в реальном времени, не дедуплицирует и не присылает подборку каждое утро.</p>
+
+        <h3>Концепция</h3>
+        <p>Telegram-бот — персональный радар вакансий. Мониторит источники, убирает дубли, классифицирует и каждое утро доставляет подборку 5–7 релевантных вакансий. Tinder-механика (свайп «интересно / пропуск») делает процесс быстрым. Геймификация: streak-счётчик дней подряд, бейджи за активность — всё это формирует привычку и превращает стрессовый поиск работы в простой ежедневный ритуал на 3–5 минут.</p>
+
+        <h3>Проработка образа MVP, логика и дизайн</h3>
+        <p>Telegram-first, минимум UI. Онбординг — 7 вопросов за 2 минуты: специальность, уровень, формат, зарплата, город, навыки, время подборки. Дальше бот работает сам. Карточка вакансии компактная — всё в одном экране без скролла. Геймификация встроена в процесс: streak-счётчик (сколько дней подряд пользователь открывал подборку), бейджи за активность, вечерние напоминания если пропустил утреннюю подборку.</p>
+      </div>
+
+      <h3 style="font-size:1.15rem;font-weight:700;margin-top:2.5rem;margin-bottom:.75rem" class="rv">Пользовательский сценарий</h3>
+      <div class="flow rv">
+        <div class="flow__step">
+          <div class="flow__num">01</div>
+          <div class="flow__text">Онбординг — 7 вопросов за 2 минуты</div>
+        </div>
+        <div class="flow__step">
+          <div class="flow__num">02</div>
+          <div class="flow__text">Первые вакансии сразу</div>
+        </div>
+        <div class="flow__step">
+          <div class="flow__num">03</div>
+          <div class="flow__text">Утренняя подборка каждый день</div>
+        </div>
+        <div class="flow__step">
+          <div class="flow__num">04</div>
+          <div class="flow__text">Бот учится на свайпах и улучшает выдачу</div>
+        </div>
+      </div>
+
+      <div class="prose rv">
+        <p>Пользователь проходит онбординг, получает первые вакансии сразу. Каждое утро приходит подборка. За пару недель формируется привычка: 3–4 минуты утром. Бот учится на свайпах — если человек постоянно пропускает вакансии без зарплаты, перестаёт их показывать.</p>
+
+        <h3>Стек</h3>
+        <div class="tags">
+          <span class="tag">Python / aiogram</span>
+          <span class="tag">Pyrogram</span>
+          <span class="tag">hh.ru API</span>
+          <span class="tag">LLM (классификация)</span>
+          <span class="tag">Sentence Embeddings</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag--navy tag">Cursor / Claude Code</span>
+        </div>
+
+        <h3>Сроки</h3>
+        <p>С учётом вайб кодинга — <span class="accent">2–3 недели</span> до рабочего MVP с тестом на бета-пользователях.</p>
+
+        <h3>Метрики</h3>
+        <p>Трекаю события через Amplitude Free или PostHog: онбординг, открытие подборки, свайпы, стрики.</p>
+      </div>
+
+      <div class="metrics rv">
+        <div class="metric">
+          <div class="metric__val">25–40%</div>
+          <div class="metric__label">доля «интересно» от показанных</div>
+        </div>
+        <div class="metric">
+          <div class="metric__val">D1/D7/D30</div>
+          <div class="metric__label">retention по когортам</div>
+        </div>
+        <div class="metric">
+          <div class="metric__val">streak</div>
+          <div class="metric__label">средняя длина серии</div>
+        </div>
+        <div class="metric">
+          <div class="metric__val">&lt;20% D7</div>
+          <div class="metric__label">kill-метрика (после 200 рег.)</div>
+        </div>
+      </div>
+
+      <div class="prose rv">
+        <p>Ключевое: доля вакансий, отмеченных «интересно», от общего числа показанных (цель 25–40% — если ниже, подборка нерелевантная). Kill-метрика: если D7 retention ниже 20% после 200 регистраций, гипотеза не работает.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ Q3: AI AGENTS ══════════ -->
+  <section id="q3">
+    <div class="wrap">
+      <div class="q-header rv">
+        <div class="q-header__num">// Вопрос 03</div>
+        <h2 class="q-header__title">Три AI-агента для повышения продуктивности CEO</h2>
+      </div>
+
+      <div class="agent-stack">
+
+        <!-- Agent 1 -->
+        <div class="agent rv" data-tilt>
+          <div class="agent__inner">
+            <div class="agent__head">
+              <div class="agent__icon agent__icon--1">&#128202;</div>
+              <div class="agent__title">Агент 1: Утренний брифинг по метрикам</div>
+            </div>
+            <div class="agent__body">
+              <p><strong>Что делает:</strong> каждое утро собирает ключевые метрики продуктов компании и выдаёт в Telegram структурированный отчёт. Не просто цифры, а контекст: «DAU упал на 12% за 3 дня, совпадает с обновлением v3.2, возможно баг». Сравнивает с целями, подсвечивает аномалии.</p>
+              <div class="agent__grid">
+                <div class="agent__detail">
+                  <div class="agent__detail-label">Данные</div>
+                  <div class="agent__detail-value">Amplitude, AppMetrica через API, App Store Connect, Google Play Console, внутренние таблицы</div>
+                </div>
+                <div class="agent__detail">
+                  <div class="agent__detail-label">Реализация</div>
+                  <div class="agent__detail-value">OpenClaw-агент с Skills под каждый источник. Запуск по расписанию. LLM для интерпретации и summary. MCP-коннекторы. Доставка через Telegram</div>
+                </div>
+                <div class="agent__detail" style="grid-column:1/-1">
+                  <div class="agent__detail-label">Польза</div>
+                  <div class="agent__detail-value">CEO начинает утро с готового анализа вместо разбора 5–7 дашбордов. Экономия 30–60 минут в день. Не пропустишь критическое падение</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agent 2 -->
+        <div class="agent rv rv-d1" data-tilt>
+          <div class="agent__inner">
+            <div class="agent__head">
+              <div class="agent__icon agent__icon--2">&#128176;</div>
+              <div class="agent__title">Агент 2: Анализ расходов и оптимизация</div>
+            </div>
+            <div class="agent__body">
+              <p><strong>Что делает:</strong> мониторит финансовые потоки: подписки на сервисы, инфраструктуру, маркетинговые бюджеты. Находит дублирующиеся подписки, неиспользуемые сервисы, аномальные всплески. Раз в неделю отчёт с рекомендациями.</p>
+              <p><strong>MVP:</strong> агент собирает все регулярные списания из банковских выписок, сопоставляет с данными об использовании сервисов (логины сотрудников, активность в инструментах через API). Если подписка оплачивается, но активности по ней нет — помечает как кандидата на отключение. Классифицирует расходы по категориям, показывает динамику, алертит при аномалиях.</p>
+
+              <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
+                <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                Идеи на развитие
+              </button>
+              <div class="collapsible-body">
+                <p style="padding-top:.5rem">Анализ расходов на персонал и их целесообразности (сопоставление затрат с output), мониторинг unit-экономики продуктов (CAC, LTV, ROI каналов), алерты при превышении бюджетов.</p>
+              </div>
+
+              <div class="agent__grid" style="margin-top:1rem">
+                <div class="agent__detail">
+                  <div class="agent__detail-label">Реализация</div>
+                  <div class="agent__detail-value">Python-сервис для сбора данных по расписанию. LLM для классификации и рекомендаций. Claude Agent SDK + MCP-коннекторы. Telegram для отчётов и алертов</div>
+                </div>
+                <div class="agent__detail">
+                  <div class="agent__detail-label">Польза</div>
+                  <div class="agent__detail-value">В компании с 100+ сотрудниками расходы легко «размазываются». Агент находит конкретные точки оптимизации</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agent 3 -->
+        <div class="agent rv rv-d2" data-tilt>
+          <div class="agent__inner">
+            <div class="agent__head">
+              <div class="agent__icon agent__icon--3">&#9889;</div>
+              <div class="agent__title">Агент 3: Командный бот CEO в Telegram</div>
+            </div>
+            <div class="agent__body">
+              <p><strong>Что делает:</strong> OpenClaw-бот в Telegram, через который CEO одним сообщением может поставить задачу сотруднику, отправить email, поставить напоминание, запросить статус проекта, найти информацию в базе знаний компании. Бот не просто пробрасывает команды в рабочие инструменты, а действует как полноценный ассистент: перед тем как назначить задачу, проверяет текущую загрузку исполнителя в трекере и календаре. Если человек перегружен, бот сам предупреждает об этом и предлагает альтернативу — переназначить на другого или сдвинуть дедлайн. То есть CEO не просто делегирует действие, а получает контекст для принятия решения.</p>
+              <div class="agent__grid">
+                <div class="agent__detail">
+                  <div class="agent__detail-label">Данные</div>
+                  <div class="agent__detail-value">Таск-трекер (Jira/Asana), корпоративная почта, календарь, база знаний (Notion/Confluence), контакты команды</div>
+                </div>
+                <div class="agent__detail">
+                  <div class="agent__detail-label">Реализация</div>
+                  <div class="agent__detail-value">OpenClaw Gateway + Telegram. Skills для каждого сервиса. Persistent memory. Мощная LLM для интерпретации свободных команд. Claude Agent SDK для сложных цепочек</div>
+                </div>
+                <div class="agent__detail" style="grid-column:1/-1">
+                  <div class="agent__detail-label">Польза</div>
+                  <div class="agent__detail-value">Задачи ставятся за секунды без открытия трекера. Письма отправляются без переключения контекста. Всё логируется в рабочих инструментах команды. Экономия 1–2 часа в день</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__inner">
+        <div class="footer__left">
+          <img src="Assets/me.png" alt="" class="footer__photo" width="28" height="28">
+          <div class="footer__text">Кожевников Артём &mdash; тестовое для <a href="https://studyworldmedia.com" target="_blank">StudyWorld</a></div>
+        </div>
+        <div class="footer__links">
+          <a href="https://t.me/temaaako" target="_blank">Telegram</a>
+          <a href="mailto:artem200110@gmail.com">Email</a>
+          <a href="https://spb.hh.ru/resume/b80b3ca9ff101fb3e20039ed1f616856674441" target="_blank">hh.ru</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════ -->
+  <script>
+  (function() {
+    'use strict';
+
+    // ── Particle constellation background ──
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: -1000, y: -1000 };
+    const PARTICLE_COUNT = 80;
+    const CONNECT_DIST = 140;
+    const MOUSE_DIST = 180;
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function createParticles() {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - .5) * .4,
+          vy: (Math.random() - .5) * .4,
+          r: Math.random() * 1.5 + .5
+        });
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        // Draw dot
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(208,225,0,.15)';
+        ctx.fill();
+
+        // Connect nearby particles
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECT_DIST) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(208,225,0,${.06 * (1 - dist / CONNECT_DIST)})`;
+            ctx.lineWidth = .5;
+            ctx.stroke();
+          }
+        }
+
+        // Mouse interaction
+        const mdx = p.x - mouse.x;
+        const mdy = p.y - mouse.y;
+        const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mDist < MOUSE_DIST) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(208,225,0,${.15 * (1 - mDist / MOUSE_DIST)})`;
+          ctx.lineWidth = .8;
+          ctx.stroke();
+
+          // Subtle repel
+          p.x += mdx * .005;
+          p.y += mdy * .005;
+        }
+      }
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    resize();
+    createParticles();
+    drawParticles();
+    window.addEventListener('resize', () => { resize(); createParticles(); });
+
+
+    // ── Custom cursor ──
+    const cursor = document.getElementById('cursor');
+    const cursorDot = document.getElementById('cursorDot');
+    let cx = -100, cy = -100, dx = -100, dy = -100;
+
+    document.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      dx = e.clientX;
+      dy = e.clientY;
+      cursorDot.style.left = dx + 'px';
+      cursorDot.style.top = dy + 'px';
+    });
+
+    function animateCursor() {
+      cx += (dx - cx) * .15;
+      cy += (dy - cy) * .15;
+      cursor.style.left = cx + 'px';
+      cursor.style.top = cy + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Hover state on interactive elements
+    document.querySelectorAll('a, button, .mini-card, .agent, .flow__step').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+
+
+    // ── Scroll progress ──
+    const bar = document.getElementById('scrollProgress');
+    function updateProgress() {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (window.scrollY / h * 100) + '%';
+    }
+
+
+    // ── Nav hide/show ──
+    const nav = document.getElementById('nav');
+    let lastY = 0;
+    function updateNav() {
+      const y = window.scrollY;
+      nav.classList.toggle('hide', y > lastY && y > 100);
+      lastY = y;
+    }
+
+    // Active link
+    const secs = document.querySelectorAll('section[id]');
+    const navAs = document.querySelectorAll('.nav__links a');
+    function updateActive() {
+      const sy = window.scrollY + 200;
+      secs.forEach(s => {
+        if (sy >= s.offsetTop && sy < s.offsetTop + s.offsetHeight) {
+          navAs.forEach(a => a.classList.remove('active'));
+          const a = document.querySelector(`.nav__links a[href="#${s.id}"]`);
+          if (a) a.classList.add('active');
+        }
+      });
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateProgress();
+          updateNav();
+          updateActive();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+
+    // ── Mobile burger ──
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+
+    // ── Intersection observer reveals ──
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+    }, { threshold: .08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+
+    // ── 3D Tilt on agent cards ──
+    document.querySelectorAll('[data-tilt]').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - .5;
+        const y = (e.clientY - rect.top) / rect.height - .5;
+        card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) scale(1.01)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(800px) rotateY(0) rotateX(0) scale(1)';
+      });
+    });
+
+    updateProgress();
+  })();
+
+
+  // ── Collapsible sections ──
+  function toggleCollapsible(trigger) {
+    trigger.classList.toggle('open');
+    const body = trigger.nextElementSibling;
+    body.classList.toggle('open');
+  }
+  </script>
+</body>
+</html>

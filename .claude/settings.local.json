@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:career.habr.com)",
+      "WebFetch(domain:hh.ru)",
+      "WebFetch(domain:vc.ru)",
+      "WebFetch(domain:spb.hh.ru)",
+      "WebFetch(domain:geekjob.ru)",
+      "WebFetch(domain:studyworldmedia.com)",
+      "WebFetch(domain:ru.linkedin.com)",
+      "WebFetch(domain:embit.ru)",
+      "WebFetch(domain:www.behance.net)",
+      "WebFetch(domain:antijob.net)",
+      "WebFetch(domain:habrastorage.org)",
+      "WebFetch(domain:studyworld.io)",
+      "WebFetch(domain:www.zoominfo.com)",
+      "WebFetch(domain:play.google.com)",
+      "WebFetch(domain:sankt-peterburg.trud.com)",
+      "WebFetch(domain:img.hhcdn.ru)",
+      "WebFetch(domain:studybay.com)",
+      "WebFetch(domain:author24.ru)",
+      "WebFetch(domain:www.avtor24.ru)",
+      "mcp__Claude_Preview__preview_start"
+    ]
+  }
+}
