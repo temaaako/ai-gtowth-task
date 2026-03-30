@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,49 +9,88 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Yandex.Metrika counter -->
+  <!-- Yandex.Metrika -->
   <script type="text/javascript">
     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
     m[i].l=1*new Date();
     for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return;}
     k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
     (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-    // TODO: замени 00000000 на свой номер счётчика Яндекс.Метрики
+    // TODO: замени 00000000 на свой номер счётчика
     ym(00000000, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
   </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/00000000" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <noscript><div><img src="https://mc.yandex.ru/watch/00000000" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
 
   <style>
-    /* ═══════════════════════════════════════
-       TOKENS
-    ═══════════════════════════════════════ */
+    /* ═══════════ DESIGN TOKENS ═══════════ */
     :root {
-      --lime: #d0e100;
-      --lime-20: rgba(208,225,0,.2);
-      --lime-10: rgba(208,225,0,.1);
-      --lime-05: rgba(208,225,0,.05);
-      --navy: #08345b;
-      --navy-50: rgba(8,52,91,.5);
-      --red: #ed1834;
-      --red-20: rgba(237,24,52,.2);
-      --bg: #060609;
-      --bg2: #0c0c12;
-      --card: #101018;
-      --card-hover: #16161f;
-      --surface: #1a1a24;
-      --text: #e4e4ec;
-      --text2: #9898b0;
-      --text3: #5c5c78;
-      --border: rgba(255,255,255,.06);
-      --border2: rgba(255,255,255,.1);
       --font: 'Inter', system-ui, sans-serif;
       --mono: 'JetBrains Mono', monospace;
       --ease: cubic-bezier(.16,1,.3,1);
-      --ease-bounce: cubic-bezier(.34,1.56,.64,1);
+      --ease-out: cubic-bezier(.33,1,.68,1);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --transition-theme: background .5s var(--ease), color .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease);
     }
 
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    [data-theme="light"] {
+      --bg: #f7f6f2;
+      --bg2: #efede7;
+      --card: #ffffff;
+      --card-border: rgba(0,0,0,.06);
+      --card-shadow: 0 1px 3px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04);
+      --card-shadow-hover: 0 4px 12px rgba(0,0,0,.06), 0 16px 40px rgba(0,0,0,.08);
+      --text: #273041;
+      --text2: #5f6677;
+      --text3: #8e96a8;
+      --accent: #6e8db2;
+      --accent-soft: rgba(110,141,178,.12);
+      --accent-medium: rgba(110,141,178,.26);
+      --accent2: #cd93a8;
+      --accent2-soft: rgba(205,147,168,.12);
+      --border: rgba(0,0,0,.06);
+      --border2: rgba(0,0,0,.1);
+      --tag-bg: rgba(110,141,178,.12);
+      --tag-border: rgba(110,141,178,.2);
+      --tag-color: #4d6f98;
+      --nav-bg: rgba(247,246,242,.84);
+      --concept-bg: linear-gradient(135deg, #6f8eaf, #8da4c2);
+      --noise-opacity: .015;
+      --particle-color: 110,141,178;
+      --particle-opacity: .06;
+      --cursor-color: var(--accent);
+    }
 
+    [data-theme="dark"] {
+      --bg: #151b26;
+      --bg2: #1d2532;
+      --card: #1d2532;
+      --card-border: rgba(255,255,255,.06);
+      --card-shadow: 0 1px 3px rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.3);
+      --card-shadow-hover: 0 4px 12px rgba(0,0,0,.3), 0 20px 50px rgba(0,0,0,.4);
+      --text: #e7edf7;
+      --text2: #b3bfce;
+      --text3: #8593a6;
+      --accent: #9cb9d8;
+      --accent-soft: rgba(156,185,216,.12);
+      --accent-medium: rgba(156,185,216,.24);
+      --accent2: #d8a4b8;
+      --accent2-soft: rgba(216,164,184,.14);
+      --border: rgba(255,255,255,.06);
+      --border2: rgba(255,255,255,.1);
+      --tag-bg: rgba(156,185,216,.12);
+      --tag-border: rgba(156,185,216,.22);
+      --tag-color: #c4d8ee;
+      --nav-bg: rgba(21,27,38,.78);
+      --concept-bg: linear-gradient(135deg, #2e4057, #3f5876);
+      --noise-opacity: .02;
+      --particle-color: 156,185,216;
+      --particle-opacity: .09;
+      --cursor-color: var(--accent);
+    }
+
+    /* ═══════════ RESET ═══════════ */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
 
     body {
@@ -61,877 +100,424 @@
       line-height: 1.75;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      transition: var(--transition-theme);
       cursor: none;
     }
 
     @media (pointer: coarse) { body { cursor: auto; } }
+    ::selection { background: var(--accent); color: #fff; }
+    a { color: var(--accent); text-decoration: none; }
 
-    ::selection { background: var(--lime); color: var(--bg); }
-
-    a { color: var(--lime); text-decoration: none; }
-
-    /* ═══════════════════════════════════════
-       CUSTOM CURSOR
-    ═══════════════════════════════════════ */
+    /* ═══════════ CUSTOM CURSOR ═══════════ */
     .cursor {
       position: fixed;
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--lime);
+      width: 20px; height: 20px;
+      border: 2px solid var(--cursor-color);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transition: width .3s var(--ease), height .3s var(--ease), border-color .3s, background .3s, transform .3s var(--ease);
-      transform: translate(-50%, -50%);
-      mix-blend-mode: difference;
+      transition: width .3s var(--ease), height .3s var(--ease), background .3s, transform .3s var(--ease), opacity .3s;
+      transform: translate(-50%,-50%);
     }
-
-    .cursor.hovering {
-      width: 50px;
-      height: 50px;
-      background: var(--lime);
-      border-color: var(--lime);
-    }
-
+    .cursor.hover { width: 50px; height: 50px; background: var(--accent-soft); }
     .cursor-dot {
       position: fixed;
-      width: 5px;
-      height: 5px;
-      background: var(--lime);
+      width: 5px; height: 5px;
+      background: var(--accent);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%,-50%);
+      transition: background .3s;
     }
+    @media (pointer: coarse) { .cursor, .cursor-dot { display: none !important; } }
 
-    @media (pointer: coarse) { .cursor, .cursor-dot { display: none; } }
-
-    /* ═══════════════════════════════════════
-       NOISE OVERLAY
-    ═══════════════════════════════════════ */
+    /* ═══════════ NOISE + CANVAS ═══════════ */
     .noise {
-      position: fixed;
-      inset: 0;
-      z-index: 9000;
-      pointer-events: none;
-      opacity: .035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 256px 256px;
+      position: fixed; inset: 0; z-index: 9000; pointer-events: none;
+      opacity: var(--noise-opacity);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 256px; transition: opacity .5s;
     }
+    #particleCanvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
-    /* ═══════════════════════════════════════
-       CANVAS BG
-    ═══════════════════════════════════════ */
-    #particleCanvas {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* ═══════════════════════════════════════
-       SCROLL PROGRESS
-    ═══════════════════════════════════════ */
+    /* ═══════════ SCROLL PROGRESS ═══════════ */
     .scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 2px;
-      background: var(--lime);
-      z-index: 10000;
+      position: fixed; top: 0; left: 0; height: 2px; z-index: 10000;
+      background: var(--accent);
       transform-origin: left;
-      will-change: transform;
     }
 
-    /* ═══════════════════════════════════════
-       NAV
-    ═══════════════════════════════════════ */
+    /* ═══════════ NAV ═══════════ */
     .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 0 clamp(1.5rem, 4vw, 3rem);
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(6,6,9,.6);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 clamp(1.5rem,4vw,3rem); height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--nav-bg);
       backdrop-filter: blur(24px) saturate(1.4);
       -webkit-backdrop-filter: blur(24px) saturate(1.4);
       border-bottom: 1px solid var(--border);
-      transition: transform .4s var(--ease);
+      transition: transform .4s var(--ease), var(--transition-theme);
     }
-
     .nav.hide { transform: translateY(-100%); }
 
-    .nav__left {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+    .nav__left { display: flex; align-items: center; gap: .75rem; }
+    .nav__photo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border2); }
+    .nav__name { font-size: .8rem; font-weight: 600; color: var(--text2); }
+    .nav__name span { color: var(--accent); }
 
-    .nav__photo {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid var(--border2);
-    }
-
-    .nav__name {
-      font-size: .82rem;
-      font-weight: 600;
-      color: var(--text2);
-      letter-spacing: -.01em;
-    }
-
-    .nav__name span { color: var(--lime); }
-
-    .nav__links {
-      display: flex;
-      gap: .25rem;
-      list-style: none;
-    }
-
+    .nav__right { display: flex; align-items: center; gap: .25rem; }
+    .nav__links { display: flex; gap: .15rem; list-style: none; }
     .nav__links a {
-      color: var(--text3);
-      font-size: .78rem;
-      font-weight: 500;
-      padding: .4rem .75rem;
-      border-radius: 6px;
-      transition: color .2s, background .2s;
+      color: var(--text3); font-size: .78rem; font-weight: 500;
+      padding: .35rem .7rem; border-radius: 6px; transition: color .2s, background .2s;
     }
+    .nav__links a:hover, .nav__links a.active { color: var(--text); background: var(--accent-soft); }
 
-    .nav__links a:hover, .nav__links a.active {
-      color: var(--text);
-      background: rgba(255,255,255,.05);
+    /* Theme toggle */
+    .theme-toggle {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--accent-soft); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: none; margin-left: .5rem; transition: background .3s, border-color .3s, transform .3s var(--ease);
     }
+    .theme-toggle:hover { transform: scale(1.1) rotate(15deg); }
+    .theme-toggle svg { width: 18px; height: 18px; color: var(--accent); transition: color .3s; }
+    .sun-icon { display: block; }
+    .moon-icon { display: none; }
+    [data-theme="dark"] .sun-icon { display: none; }
+    [data-theme="dark"] .moon-icon { display: block; }
 
-    .nav__burger {
-      display: none;
-      background: none;
-      border: none;
-      padding: 4px;
-      cursor: none;
-    }
-
-    .nav__burger span {
-      display: block;
-      width: 22px;
-      height: 1.5px;
-      background: var(--text);
-      margin: 5px 0;
-      transition: .3s;
-    }
+    .nav__burger { display: none; background: none; border: none; cursor: none; padding: 4px; }
+    .nav__burger span { display: block; width: 20px; height: 1.5px; background: var(--text); margin: 4px 0; transition: .3s; }
 
     @media (max-width: 768px) {
       .nav__links {
-        position: fixed;
-        top: 60px;
-        left: 0;
-        right: 0;
-        background: rgba(6,6,9,.95);
-        backdrop-filter: blur(24px);
-        flex-direction: column;
-        padding: 1.5rem;
-        gap: .5rem;
+        position: fixed; top: 56px; left: 0; right: 0;
+        background: var(--nav-bg); backdrop-filter: blur(24px);
+        flex-direction: column; padding: 1.5rem; gap: .5rem;
         border-bottom: 1px solid var(--border);
-        transform: translateY(-120%);
-        transition: transform .4s var(--ease);
+        transform: translateY(calc(-100% - 56px)); transition: transform .4s var(--ease);
       }
       .nav__links.open { transform: translateY(0); }
       .nav__burger { display: block; }
     }
 
-    /* ═══════════════════════════════════════
-       LAYOUT
-    ═══════════════════════════════════════ */
-    .wrap {
-      position: relative;
-      z-index: 1;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 clamp(1.5rem, 4vw, 2.5rem);
-    }
-
+    /* ═══════════ LAYOUT ═══════════ */
+    .wrap { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; padding: 0 clamp(1.5rem,4vw,2.5rem); }
     section { padding: 5rem 0; }
 
-    /* ═══════════════════════════════════════
-       HERO
-    ═══════════════════════════════════════ */
+    /* ═══════════ HERO ═══════════ */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding-top: 60px;
-      position: relative;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding-top: 56px; position: relative;
+    }
+    .hero__content { max-width: 680px; }
+
+    .hero__photo-wrap {
+      width: clamp(128px, 22vw, 170px); height: clamp(128px, 22vw, 170px); margin: 0 auto 1rem;
+      border-radius: 50%; padding: 3px; position: relative;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      opacity: 0; animation: fadeUp .7s var(--ease) .1s forwards;
+    }
+    .hero__photo-wrap img {
+      width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+      display: block; border: 3px solid var(--bg); transition: border-color .5s;
+    }
+    .hero__photo-wrap::after {
+      content: ''; position: absolute; inset: -8px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      opacity: .15; filter: blur(16px); z-index: -1;
+    }
+    .hero__author {
+      display: inline-block;
+      font-size: .76rem;
+      color: var(--text2);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-medium);
+      border-radius: 100px;
+      padding: .3rem .75rem;
+      margin-bottom: 1.3rem;
+      opacity: 0; animation: fadeUp .7s var(--ease) .18s forwards;
     }
 
-    .hero__content { max-width: 720px; }
-
     .hero__eyebrow {
-      font-family: var(--mono);
-      font-size: .75rem;
-      font-weight: 500;
-      color: var(--text3);
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: fadeUp .8s var(--ease) .2s forwards;
+      font-family: var(--mono); font-size: .72rem; font-weight: 500;
+      color: var(--text3); letter-spacing: .15em; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp .7s var(--ease) .25s forwards;
     }
 
     .hero__title {
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -.04em;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp .8s var(--ease) .4s forwards;
+      font-size: clamp(2.6rem,6.5vw,5rem); font-weight: 900;
+      line-height: 1.05; letter-spacing: -.04em; margin-bottom: 1.25rem;
+      opacity: 0; animation: fadeUp .7s var(--ease) .4s forwards;
     }
-
-    .hero__title .glow {
-      background: linear-gradient(135deg, var(--lime), #e8ff30, var(--lime));
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .hero__title .grad {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: fadeUp .8s var(--ease) .4s forwards, gradientShift 4s ease infinite;
-    }
-
-    @keyframes gradientShift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
     }
 
     .hero__sub {
-      font-size: 1.1rem;
-      color: var(--text2);
-      margin-bottom: 2.5rem;
-      max-width: 520px;
-      margin-left: auto;
-      margin-right: auto;
-      opacity: 0;
-      animation: fadeUp .8s var(--ease) .6s forwards;
+      font-size: 1.05rem; color: var(--text2); margin-bottom: 2rem;
+      max-width: 500px; margin-left: auto; margin-right: auto;
+      opacity: 0; animation: fadeUp .7s var(--ease) .55s forwards;
     }
 
     .hero__cta {
-      display: flex;
-      gap: .75rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp .8s var(--ease) .8s forwards;
+      display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp .7s var(--ease) .7s forwards;
+    }
+
+    .hero__mobile-note {
+      font-size: .75rem; color: var(--text3); margin-top: 1.5rem;
+      opacity: 0; animation: fadeUp .7s var(--ease) .85s forwards;
     }
 
     .hero__scroll {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      animation: fadeUp .8s var(--ease) 1.2s forwards;
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      opacity: 0; animation: fadeUp .7s var(--ease) 1s forwards;
     }
+    .hero__scroll svg { width: 18px; height: 18px; color: var(--text3); animation: bounce 2s ease infinite; }
 
-    .hero__scroll svg {
-      width: 20px;
-      height: 20px;
-      color: var(--text3);
-      animation: bounce 2s ease infinite;
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes bounce { 0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(6px)}60%{transform:translateY(3px)} }
 
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(8px); }
-      60% { transform: translateY(4px); }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ═══════════════════════════════════════
-       BUTTONS
-    ═══════════════════════════════════════ */
+    /* ═══════════ BUTTONS ═══════════ */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .65rem 1.4rem;
-      border-radius: 10px;
-      font-size: .85rem;
-      font-weight: 600;
-      font-family: var(--font);
-      cursor: none;
-      border: none;
-      transition: all .3s var(--ease);
-      position: relative;
-      overflow: hidden;
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .6rem 1.3rem; border-radius: var(--radius-sm);
+      font-size: .84rem; font-weight: 600; font-family: var(--font);
+      cursor: none; border: none; transition: all .3s var(--ease); position: relative; overflow: hidden;
     }
-
-    .btn--primary {
-      background: var(--lime);
-      color: var(--bg);
-    }
-
+    .btn--primary { background: var(--accent); color: #fff; }
     .btn--primary::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,.3) 50%, transparent 70%);
-      transform: translateX(-100%);
-      transition: transform .6s;
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.25) 50%, transparent 70%);
+      transform: translateX(-100%); transition: transform .6s;
     }
-
     .btn--primary:hover::before { transform: translateX(100%); }
+    .btn--primary:hover { box-shadow: 0 0 30px var(--accent-medium); transform: translateY(-2px); }
+    .btn--ghost { background: transparent; color: var(--text2); border: 1px solid var(--border2); }
+    .btn--ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
-    .btn--primary:hover {
-      box-shadow: 0 0 40px rgba(208,225,0,.3);
-      transform: translateY(-2px);
-    }
-
-    .btn--ghost {
-      background: transparent;
-      color: var(--text2);
-      border: 1px solid var(--border2);
-    }
-
-    .btn--ghost:hover {
-      border-color: var(--lime);
-      color: var(--lime);
-      transform: translateY(-2px);
-    }
-
-    /* ═══════════════════════════════════════
-       SECTION HEADERS
-    ═══════════════════════════════════════ */
-    .q-header {
-      margin-bottom: 3rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
-    }
-
+    /* ═══════════ SECTION HEADER ═══════════ */
+    .q-header { margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
     .q-header__num {
-      font-family: var(--mono);
-      font-size: .72rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--lime);
-      margin-bottom: .75rem;
+      font-family: var(--mono); font-size: .7rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem;
     }
+    .q-header__title { font-size: clamp(1.5rem,3.2vw,2.1rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.2; }
 
-    .q-header__title {
-      font-size: clamp(1.6rem, 3.5vw, 2.3rem);
-      font-weight: 800;
-      letter-spacing: -.03em;
-      line-height: 1.2;
-    }
+    /* ═══════════ REVEAL ═══════════ */
+    .rv { opacity: 0; transform: translateY(40px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .rv.vis { opacity: 1; transform: none; }
+    .rv-d1{transition-delay:.08s} .rv-d2{transition-delay:.16s} .rv-d3{transition-delay:.24s} .rv-d4{transition-delay:.32s}
 
-    /* ═══════════════════════════════════════
-       REVEAL
-    ═══════════════════════════════════════ */
-    .rv {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity .8s var(--ease), transform .8s var(--ease);
-    }
-
-    .rv.vis {
-      opacity: 1;
-      transform: none;
-    }
-
-    .rv-d1 { transition-delay: .08s; }
-    .rv-d2 { transition-delay: .16s; }
-    .rv-d3 { transition-delay: .24s; }
-    .rv-d4 { transition-delay: .32s; }
-
-    /* ═══════════════════════════════════════
-       PROSE (full-text answers)
-    ═══════════════════════════════════════ */
+    /* ═══════════ PROSE ═══════════ */
     .prose { max-width: 720px; }
-
-    .prose h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: -.01em;
-      margin-top: 2.5rem;
-      margin-bottom: .75rem;
-      color: var(--text);
-    }
-
+    .prose h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -.01em; margin-top: 2.25rem; margin-bottom: .6rem; }
     .prose h3:first-child { margin-top: 0; }
+    .prose p { color: var(--text2); margin-bottom: 1.15rem; font-size: .92rem; line-height: 1.85; }
+    .prose strong { color: var(--text); font-weight: 600; }
+    .prose em { font-style: italic; color: var(--text2); }
+    .accent { color: var(--accent); font-weight: 600; }
 
-    .prose p {
-      color: var(--text2);
-      margin-bottom: 1.25rem;
-      font-size: .95rem;
-      line-height: 1.85;
+    /* ═══════════ CARD ═══════════ */
+    .card {
+      border-radius: var(--radius); background: var(--card);
+      border: 1px solid var(--card-border); box-shadow: var(--card-shadow);
+      padding: clamp(1.5rem,3vw,2.5rem);
+      transition: var(--transition-theme), transform .4s var(--ease), box-shadow .4s var(--ease);
     }
+    .card:hover { box-shadow: var(--card-shadow-hover); }
 
-    .prose strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .prose .accent {
-      color: var(--lime);
-      font-weight: 600;
-    }
-
-    /* ═══════════════════════════════════════
-       GLOW CARD — animated gradient border
-    ═══════════════════════════════════════ */
+    /* Animated gradient border card */
     .glow-card {
-      position: relative;
-      border-radius: 20px;
-      padding: 2px;
-      background: var(--border);
-      transition: transform .4s var(--ease);
+      position: relative; border-radius: 20px; padding: 2px;
+      background: var(--card-border); transition: transform .4s var(--ease);
     }
-
     .glow-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      padding: 2px;
-      background: conic-gradient(from var(--angle, 0deg), transparent 40%, var(--lime) 50%, transparent 60%);
+      content: ''; position: absolute; inset: 0; border-radius: 20px; padding: 2px;
+      background: conic-gradient(from var(--angle,0deg), transparent 40%, var(--accent) 50%, transparent 60%);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity .5s;
-      animation: rotateGlow 4s linear infinite;
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity: 0; transition: opacity .5s; animation: rotGlow 4s linear infinite;
     }
-
     .glow-card:hover::before { opacity: 1; }
     .glow-card:hover { transform: translateY(-4px); }
-
-    @property --angle {
-      syntax: '<angle>';
-      initial-value: 0deg;
-      inherits: false;
-    }
-
-    @keyframes rotateGlow {
-      to { --angle: 360deg; }
-    }
-
+    @property --angle { syntax:'<angle>'; initial-value:0deg; inherits:false; }
+    @keyframes rotGlow { to { --angle: 360deg; } }
     .glow-card__inner {
-      background: var(--card);
-      border-radius: 18px;
-      padding: clamp(1.5rem, 3vw, 2.5rem);
-      position: relative;
-      overflow: hidden;
+      background: var(--card); border-radius: 18px; padding: clamp(1.5rem,3vw,2.5rem);
+      position: relative; overflow: hidden; transition: var(--transition-theme);
     }
 
-    /* ═══════════════════════════════════════
-       TECH TAGS
-    ═══════════════════════════════════════ */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .4rem;
-      margin: 1rem 0;
-    }
-
+    /* ═══════════ TAGS ═══════════ */
+    .tags { display: flex; flex-wrap: wrap; gap: .35rem; margin: 1rem 0; }
     .tag {
-      padding: .25rem .65rem;
-      border-radius: 6px;
-      font-size: .72rem;
-      font-weight: 600;
-      font-family: var(--mono);
-      background: var(--lime-10);
-      color: var(--lime);
-      border: 1px solid var(--lime-20);
+      padding: .22rem .6rem; border-radius: 6px; font-size: .7rem;
+      font-weight: 600; font-family: var(--mono);
+      background: var(--tag-bg); color: var(--tag-color); border: 1px solid var(--tag-border);
+      transition: var(--transition-theme);
     }
 
-    .tag--navy {
-      background: var(--navy-50);
-      color: var(--text);
-      border-color: rgba(8,52,91,.8);
-    }
-
-    /* ═══════════════════════════════════════
-       PROJECT MINI-CARDS
-    ═══════════════════════════════════════ */
-    .mini-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
+    /* ═══════════ MINI CARDS ═══════════ */
+    .mini-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 1rem; margin-top: 1.5rem; }
     .mini-card {
-      padding: 1.25rem;
-      border-radius: 14px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      transition: border-color .3s, transform .3s var(--ease), box-shadow .3s;
-      position: relative;
+      padding: 1.2rem; border-radius: var(--radius-sm);
+      background: var(--card); border: 1px solid var(--card-border); box-shadow: var(--card-shadow);
+      transition: var(--transition-theme), transform .3s var(--ease), box-shadow .3s;
     }
-
-    .mini-card:hover {
-      border-color: var(--lime-20);
-      transform: translateY(-3px) scale(1.01);
-      box-shadow: 0 12px 40px rgba(0,0,0,.4);
-    }
-
-    .mini-card__title {
-      font-size: .95rem;
-      font-weight: 700;
-      margin-bottom: .4rem;
-    }
-
-    .mini-card__desc {
-      font-size: .82rem;
-      color: var(--text2);
-      line-height: 1.7;
-      margin-bottom: .75rem;
-    }
-
-    .mini-card__link {
-      font-size: .78rem;
-      font-weight: 600;
-      color: var(--lime);
-      display: inline-flex;
-      align-items: center;
-      gap: .3rem;
-    }
-
+    .mini-card:hover { transform: translateY(-3px); box-shadow: var(--card-shadow-hover); }
+    .mini-card__title { font-size: .92rem; font-weight: 700; margin-bottom: .35rem; }
+    .mini-card__desc { font-size: .8rem; color: var(--text2); line-height: 1.7; margin-bottom: .6rem; }
+    .mini-card__link { font-size: .76rem; font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: .3rem; }
     .mini-card__link:hover .arrow { transform: translateX(3px); }
     .arrow { transition: transform .2s; display: inline-block; }
 
-    /* ═══════════════════════════════════════
-       MVP CONCEPT — full-width accent block
-    ═══════════════════════════════════════ */
+    /* ═══════════ CONCEPT HERO ═══════════ */
     .concept-hero {
-      position: relative;
-      border-radius: 24px;
-      overflow: hidden;
-      margin-bottom: 2.5rem;
-      background: linear-gradient(135deg, var(--navy) 0%, #041525 100%);
-      padding: clamp(2rem, 5vw, 3.5rem);
+      position: relative; border-radius: 20px; overflow: hidden; margin-bottom: 2rem;
+      background: var(--concept-bg); padding: clamp(2rem,5vw,3rem); color: #fff;
+      transition: var(--transition-theme);
     }
-
     .concept-hero::before {
-      content: '';
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      background: var(--lime);
-      filter: blur(180px);
-      opacity: .08;
-      top: -100px;
-      right: -100px;
+      content: ''; position: absolute; width: 300px; height: 300px;
+      background: rgba(255,255,255,.1); filter: blur(120px); top: -80px; right: -60px;
     }
+    .concept-hero__name { font-family: var(--mono); font-size: clamp(1.6rem,3.5vw,2.5rem); font-weight: 800; letter-spacing: -.03em; }
+    .concept-hero__name em { font-style: normal; color: #fde68a; }
+    .concept-hero__tagline { font-size: 1rem; color: rgba(255,255,255,.7); margin-top: .4rem; }
 
-    .concept-hero__name {
-      font-family: var(--mono);
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      font-weight: 800;
-      letter-spacing: -.03em;
-    }
-
-    .concept-hero__name em {
-      font-style: normal;
-      color: var(--lime);
-    }
-
-    .concept-hero__tagline {
-      font-size: 1.05rem;
-      color: var(--text2);
-      margin-top: .5rem;
-    }
-
-    /* ═══════════════════════════════════════
-       FLOW STEPS
-    ═══════════════════════════════════════ */
-    .flow {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: .75rem;
-      margin: 1.5rem 0;
-    }
-
+    /* ═══════════ FLOW ═══════════ */
+    .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: .6rem; margin: 1.25rem 0; }
     .flow__step {
-      padding: 1.25rem;
-      border-radius: 14px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      text-align: center;
-      transition: border-color .3s, transform .3s var(--ease);
+      padding: 1.1rem; border-radius: var(--radius-sm); text-align: center;
+      background: var(--card); border: 1px solid var(--card-border); box-shadow: var(--card-shadow);
+      transition: var(--transition-theme), transform .3s var(--ease);
     }
+    .flow__step:hover { transform: translateY(-3px); }
+    .flow__num { font-family: var(--mono); font-size: .7rem; font-weight: 700; color: var(--accent); margin-bottom: .3rem; }
+    .flow__text { font-size: .8rem; color: var(--text2); line-height: 1.6; }
 
-    .flow__step:hover {
-      border-color: var(--lime-20);
-      transform: translateY(-3px);
-    }
-
-    .flow__num {
-      font-family: var(--mono);
-      font-size: .72rem;
-      font-weight: 700;
-      color: var(--lime);
-      margin-bottom: .4rem;
-    }
-
-    .flow__text {
-      font-size: .82rem;
-      color: var(--text2);
-      line-height: 1.6;
-    }
-
-    /* ═══════════════════════════════════════
-       METRIC PILLS
-    ═══════════════════════════════════════ */
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: .75rem;
-      margin: 1.5rem 0;
-    }
-
+    /* ═══════════ METRICS ═══════════ */
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: .6rem; margin: 1.25rem 0; }
     .metric {
-      padding: 1.2rem;
-      border-radius: 14px;
-      background: var(--lime-05);
-      border: 1px solid var(--lime-20);
-      text-align: center;
+      padding: 1.1rem; border-radius: var(--radius-sm); text-align: center;
+      background: var(--accent-soft); border: 1px solid var(--accent-medium);
+      transition: var(--transition-theme);
     }
+    .metric__val { font-family: var(--mono); font-size: 1.2rem; font-weight: 800; color: var(--accent); }
+    .metric__label { font-size: .7rem; color: var(--text2); margin-top: .15rem; }
 
-    .metric__val {
-      font-family: var(--mono);
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--lime);
-    }
-
-    .metric__label {
-      font-size: .72rem;
-      color: var(--text2);
-      margin-top: .2rem;
-    }
-
-    /* ═══════════════════════════════════════
-       AGENT CARDS — 3D tilt
-    ═══════════════════════════════════════ */
-    .agent-stack { display: grid; gap: 1.5rem; }
-
+    /* ═══════════ AGENT CARDS ═══════════ */
+    .agent-stack { display: grid; gap: 1.25rem; }
     .agent {
       border-radius: 20px;
-      padding: 2px;
-      background: var(--border);
-      transition: transform .4s var(--ease), box-shadow .4s;
-      will-change: transform;
-      /* 3d tilt handled by JS */
-      transform-style: preserve-3d;
-      perspective: 800px;
+      background: var(--card); border: 1px solid var(--card-border); box-shadow: var(--card-shadow);
+      padding: clamp(1.5rem,3vw,2rem);
+      transition: var(--transition-theme), transform .4s var(--ease), box-shadow .4s;
+      transform-style: preserve-3d; perspective: 800px;
     }
+    .agent:hover { box-shadow: var(--card-shadow-hover); }
 
-    .agent:hover { box-shadow: 0 20px 60px rgba(0,0,0,.5); }
-
-    .agent__inner {
-      background: var(--card);
-      border-radius: 18px;
-      padding: clamp(1.5rem, 3vw, 2rem);
-    }
-
-    .agent__head {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-    }
-
+    .agent__head { display: flex; align-items: center; gap: .85rem; margin-bottom: 1rem; }
     .agent__icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      flex-shrink: 0;
+      width: 44px; height: 44px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
     }
+    .agent__icon--1 { background: var(--accent-soft); }
+    .agent__icon--2 { background: var(--accent2-soft); }
+    .agent__icon--3 { background: var(--tag-bg); }
+    .agent__title { font-size: 1.1rem; font-weight: 700; }
 
-    .agent__icon--1 { background: var(--lime-10); border: 1px solid var(--lime-20); }
-    .agent__icon--2 { background: var(--navy-50); border: 1px solid rgba(8,52,91,.8); }
-    .agent__icon--3 { background: var(--red-20); border: 1px solid rgba(237,24,52,.3); }
-
-    .agent__title {
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-
-    .agent__body p {
-      font-size: .9rem;
-      color: var(--text2);
-      line-height: 1.85;
-      margin-bottom: 1rem;
-    }
-
+    .agent__body p { font-size: .88rem; color: var(--text2); line-height: 1.85; margin-bottom: .85rem; }
     .agent__body p:last-child { margin-bottom: 0; }
-
     .agent__body strong { color: var(--text); font-weight: 600; }
 
-    .agent__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: .6rem;
-      margin-top: 1rem;
-    }
-
+    .agent__grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-top: .85rem; }
     .agent__detail {
-      padding: .75rem;
-      border-radius: 10px;
-      background: rgba(255,255,255,.02);
-      border: 1px solid var(--border);
+      padding: .65rem; border-radius: 8px;
+      background: var(--bg); border: 1px solid var(--border); transition: var(--transition-theme);
+    }
+    .agent__detail-label { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text3); margin-bottom: .15rem; }
+    .agent__detail-value { font-size: .78rem; color: var(--text2); line-height: 1.5; }
+    @media (max-width:640px) { .agent__grid { grid-template-columns: 1fr; } }
+
+    /* ═══════════ COLLAPSIBLE ═══════════ */
+    .coll-trigger {
+      display: flex; align-items: center; gap: .4rem;
+      cursor: none; background: none; border: none; color: var(--text);
+      font-family: var(--font); font-size: 1.1rem; font-weight: 700;
+      padding: .4rem 0; width: 100%; text-align: left; transition: color .2s;
+    }
+    .coll-trigger:hover { color: var(--accent); }
+    .coll-trigger .chev { transition: transform .3s var(--ease); flex-shrink: 0; }
+    .coll-trigger.open .chev { transform: rotate(90deg); }
+    .coll-body { overflow: hidden; max-height: 0; transition: max-height .5s var(--ease), opacity .3s; opacity: 0; }
+    .coll-body.open { max-height: 2000px; opacity: 1; }
+
+    /* ═══════════ MARQUEE (scrolling tags) ═══════════ */
+    .marquee { overflow: hidden; padding: 1rem 0; position: relative; }
+    .marquee::before, .marquee::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2;
+      pointer-events: none;
+    }
+    .marquee::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+    .marquee::after { right: 0; background: linear-gradient(-90deg, var(--bg), transparent); }
+    .marquee__track {
+      display: flex; gap: .5rem; width: max-content;
+      animation: marquee 30s linear infinite;
+    }
+    .marquee__track:hover { animation-play-state: paused; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+    .marquee__item {
+      padding: .4rem 1rem; border-radius: 100px;
+      font-size: .75rem; font-weight: 500; white-space: nowrap;
+      background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-medium);
+      transition: var(--transition-theme);
     }
 
-    .agent__detail-label {
-      font-size: .65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--text3);
-      margin-bottom: .2rem;
+    /* ═══════════ FOOTER ═══════════ */
+    .footer { padding: 2rem 0; border-top: 1px solid var(--border); margin-top: 2rem; transition: var(--transition-theme); }
+    .footer__inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer__left { display: flex; align-items: center; gap: .6rem; }
+    .footer__photo { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+    .footer__text { font-size: .78rem; color: var(--text3); }
+    .footer__links { display: flex; gap: 1.25rem; }
+    .footer__links a { color: var(--text3); font-size: .78rem; font-weight: 500; transition: color .2s; }
+    .footer__links a:hover { color: var(--accent); }
+
+    /* ═══════════ MORPH BLOB (hero bg) ═══════════ */
+    .blob-wrap {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: clamp(300px,50vw,500px); height: clamp(300px,50vw,500px);
+      opacity: .09; z-index: 0; pointer-events: none; filter: blur(65px);
+      transition: opacity .5s;
+    }
+    [data-theme="light"] .blob-wrap { opacity: .06; }
+    .blob-wrap svg { width: 100%; height: 100%; }
+    .blob-path {
+      fill: var(--accent);
+      animation: morphBlob 8s ease-in-out infinite;
+    }
+    @keyframes morphBlob {
+      0%,100% { d: path('M440,320Q430,390,370,420Q310,450,250,440Q190,430,140,390Q90,350,80,290Q70,230,110,180Q150,130,200,100Q250,70,310,80Q370,90,410,140Q450,190,450,250Q450,310,440,320Z'); }
+      33% { d: path('M420,310Q410,370,360,410Q310,450,250,430Q190,410,150,370Q110,330,90,280Q70,230,100,180Q130,130,190,90Q250,50,310,90Q370,130,410,170Q450,210,440,260Q430,310,420,310Z'); }
+      66% { d: path('M430,330Q440,400,380,430Q320,460,250,450Q180,440,130,400Q80,360,70,300Q60,240,90,190Q120,140,170,100Q220,60,280,60Q340,60,390,100Q440,140,440,200Q440,260,430,330Z'); }
     }
 
-    .agent__detail-value {
-      font-size: .8rem;
-      color: var(--text2);
-      line-height: 1.5;
-    }
-
-    @media (max-width: 640px) {
-      .agent__grid { grid-template-columns: 1fr; }
-    }
-
-    /* ═══════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════ */
-    .footer {
-      padding: 2.5rem 0;
-      border-top: 1px solid var(--border);
-      margin-top: 2rem;
-    }
-
-    .footer__inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .footer__left {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-    }
-
-    .footer__photo {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .footer__text {
-      font-size: .8rem;
-      color: var(--text3);
-    }
-
-    .footer__links {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .footer__links a {
-      color: var(--text3);
-      font-size: .8rem;
-      font-weight: 500;
-      transition: color .2s;
-    }
-
-    .footer__links a:hover { color: var(--lime); }
-
-    /* ═══════════════════════════════════════
-       SEPARATOR GLOW LINE
-    ═══════════════════════════════════════ */
-    .glow-line {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--lime-20), var(--lime), var(--lime-20), transparent);
-      margin: 1rem 0;
-      opacity: .5;
-    }
-
-    /* ═══════════════════════════════════════
-       COLLAPSIBLE
-    ═══════════════════════════════════════ */
-    .collapsible-trigger {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      cursor: none;
-      background: none;
-      border: none;
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 1.15rem;
-      font-weight: 700;
-      padding: .5rem 0;
-      width: 100%;
-      text-align: left;
-      transition: color .2s;
-    }
-
-    .collapsible-trigger:hover { color: var(--lime); }
-
-    .collapsible-trigger .chevron {
-      transition: transform .3s var(--ease);
-      flex-shrink: 0;
-    }
-
-    .collapsible-trigger.open .chevron {
-      transform: rotate(90deg);
-    }
-
-    .collapsible-body {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height .5s var(--ease), opacity .3s;
-      opacity: 0;
-    }
-
-    .collapsible-body.open {
-      max-height: 2000px;
-      opacity: 1;
-    }
-
-    /* ═══════════════════════════════════════
-       PRINT
-    ═══════════════════════════════════════ */
+    /* ═══════════ PRINT ═══════════ */
     @media print {
-      .nav, .noise, #particleCanvas, .scroll-progress, .cursor, .cursor-dot { display: none; }
+      .nav,.noise,#particleCanvas,.scroll-progress,.cursor,.cursor-dot,.blob-wrap,.marquee,.hero__scroll,.theme-toggle { display: none; }
       body { background: #fff; color: #000; cursor: auto; }
       section { padding: 1.5rem 0; }
-      .glow-card::before { display: none; }
     }
   </style>
 </head>
 <body>
-  <!-- FX layers -->
   <canvas id="particleCanvas"></canvas>
   <div class="noise"></div>
   <div class="cursor" id="cursor"></div>
@@ -941,31 +527,40 @@
   <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="nav__left">
-      <img src="Assets/me.png" alt="" class="nav__photo" width="32" height="32">
+      <img src="Assets/me.png" alt="Фото Артёма Кожевникова" class="nav__photo" width="38" height="38">
       <div class="nav__name">Кожевников Артём <span>/ StudyWorld</span></div>
     </div>
-    <ul class="nav__links" id="navLinks">
-      <li><a href="#q1">Проекты</a></li>
-      <li><a href="#q2">MVP</a></li>
-      <li><a href="#q3">AI-агенты</a></li>
-    </ul>
-    <button class="nav__burger" id="burger" aria-label="Меню">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav__right">
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#q1">Задание 1</a></li>
+        <li><a href="#q2">Задание 2</a></li>
+        <li><a href="#q3">Задание 3</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Сменить тему">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+      <button class="nav__burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
   </nav>
 
   <!-- ══════════ HERO ══════════ -->
   <section class="hero" id="top">
+    <div class="blob-wrap" aria-hidden="true">
+      <svg viewBox="0 0 500 500"><path class="blob-path" d="M440,320Q430,390,370,420Q310,450,250,440Q190,430,140,390Q90,350,80,290Q70,230,110,180Q150,130,200,100Q250,70,310,80Q370,90,410,140Q450,190,450,250Q450,310,440,320Z"/></svg>
+    </div>
     <div class="hero__content">
+      <div class="hero__photo-wrap">
+        <img src="Assets/me.png" alt="Артём Кожевников" width="170" height="170">
+      </div>
+      <div class="hero__author">Автор тестового: Артём Кожевников</div>
       <div class="hero__eyebrow">Тестовое задание</div>
-      <h1 class="hero__title">
-        <span class="glow">AI-Growth</span><br>Manager
-      </h1>
-      <p class="hero__sub">Три вопроса. Реальные проекты, концепция MVP и AI-агенты для CEO. Кожевников Артём × StudyWorld.</p>
+      <h1 class="hero__title"><span class="grad">AI-Growth</span><br>Manager</h1>
+      <p class="hero__sub">Кожевников Артём &times; StudyWorld.</p>
       <div class="hero__cta">
-        <a href="#q1" class="btn btn--primary">Читать ответы</a>
-        <a href="https://t.me/temaaako" target="_blank" class="btn btn--ghost">Telegram</a>
-        <a href="https://spb.hh.ru/resume/b80b3ca9ff101fb3e20039ed1f616856674441" target="_blank" class="btn btn--ghost">Резюме</a>
+        <a href="#q1" class="btn btn--primary magnetic">Читать ответы</a>
+        <a href="https://t.me/temaaako" target="_blank" class="btn btn--ghost magnetic">Telegram</a>
+        <a href="https://spb.hh.ru/resume/b80b3ca9ff101fb3e20039ed1f616856674441" target="_blank" class="btn btn--ghost magnetic">Резюме на hh</a>
       </div>
     </div>
     <div class="hero__scroll">
@@ -973,19 +568,53 @@
     </div>
   </section>
 
+  <!-- scrolling skills marquee -->
+  <div class="marquee rv">
+    <div class="marquee__track">
+      <span class="marquee__item">Product Strategy</span>
+      <span class="marquee__item">Unit Economics</span>
+      <span class="marquee__item">A/B тесты</span>
+      <span class="marquee__item">Python</span>
+      <span class="marquee__item">LLM & Prompt Engineering</span>
+      <span class="marquee__item">Vibe Coding</span>
+      <span class="marquee__item">Jira & Agile</span>
+      <span class="marquee__item">Яндекс.Метрика</span>
+      <span class="marquee__item">CustDev</span>
+      <span class="marquee__item">Unity / C#</span>
+      <span class="marquee__item">Mobile Stores</span>
+      <span class="marquee__item">Claude Code</span>
+      <span class="marquee__item">Telegram Mini Apps</span>
+      <span class="marquee__item">SQL & Analytics</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee__item">Product Strategy</span>
+      <span class="marquee__item">Unit Economics</span>
+      <span class="marquee__item">A/B тесты</span>
+      <span class="marquee__item">Python</span>
+      <span class="marquee__item">LLM & Prompt Engineering</span>
+      <span class="marquee__item">Vibe Coding</span>
+      <span class="marquee__item">Jira & Agile</span>
+      <span class="marquee__item">Яндекс.Метрика</span>
+      <span class="marquee__item">CustDev</span>
+      <span class="marquee__item">Unity / C#</span>
+      <span class="marquee__item">Mobile Stores</span>
+      <span class="marquee__item">Claude Code</span>
+      <span class="marquee__item">Telegram Mini Apps</span>
+      <span class="marquee__item">SQL & Analytics</span>
+    </div>
+  </div>
+
   <!-- ══════════ Q1: PROJECTS ══════════ -->
   <section id="q1">
     <div class="wrap">
       <div class="q-header rv">
-        <div class="q-header__num">// Вопрос 01</div>
+        <div class="q-header__num">// Задание 01</div>
         <h2 class="q-header__title">MVP или AI-проект, который я сделал</h2>
       </div>
 
-      <!-- Project Man AI -->
       <div class="glow-card rv">
         <div class="glow-card__inner">
-          <h3 style="font-size:1.35rem;font-weight:800;margin-bottom:1rem;letter-spacing:-.02em">Project Man AI</h3>
-          <p style="color:var(--text2);font-size:.72rem;font-family:var(--mono);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1.25rem;color:var(--lime)">Персональный AI-проджект-менеджер в Telegram</p>
+          <h3 style="font-size:1.3rem;font-weight:800;margin-bottom:.75rem;letter-spacing:-.02em">Project Man AI</h3>
+          <p style="font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem">Персональный AI-проджект-менеджер в Telegram</p>
 
           <div class="prose">
             <h3>Что это за продукт и какую проблему он решал</h3>
@@ -1000,11 +629,10 @@
               <span class="tag">Jira / Trello API</span>
               <span class="tag">SQLite</span>
               <span class="tag">OpenClaw</span>
-              <span class="tag--navy tag">Vibe Coding</span>
             </div>
 
             <h3>Сроки</h3>
-            <p>Рабочий прототип собрал за <span class="accent">1 день</span> вайб кодингом. Бот умел принимать задачи, назначать дедлайны и отвечать в характере. Ещё пару дней ушло на доработку логики уведомлений и промптов для разных «персонажей».</p>
+            <p>Рабочий прототип собрал за <span class="accent">1 день</span> вайб-кодингом. Бот умел принимать задачи, назначать дедлайны и отвечать в характере. Ещё пару дней ушло на доработку логики уведомлений и промптов для разных «персонажей».</p>
 
             <h3>Сложности</h3>
             <p>Управление контекстным окном — нужно было, чтобы бот помнил историю задач, но не вылетал за лимит токенов. Решил через суммаризацию старых сообщений. Параллельно пришлось подбирать оптимальное количество токенов на запрос, чтобы не разориться на API — баланс между качеством ответов и стоимостью.</p>
@@ -1020,9 +648,8 @@
         </div>
       </div>
 
-      <!-- Other projects -->
-      <h3 style="font-size:1.1rem;font-weight:700;margin-top:3rem;margin-bottom:.5rem" class="rv">Другие проекты</h3>
-      <p style="color:var(--text2);font-size:.9rem;margin-bottom:.5rem" class="rv">Общее для всех — привычка делать быстро, считать метрики и проверять гипотезы на реальных пользователях.</p>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-top:2.5rem;margin-bottom:.4rem" class="rv">Другие проекты</h3>
+      <p style="color:var(--text2);font-size:.88rem;margin-bottom:.25rem" class="rv">Общее для всех — привычка делать быстро, считать метрики и проверять гипотезы на реальных пользователях.</p>
 
       <div class="mini-grid rv">
         <div class="mini-card">
@@ -1032,21 +659,22 @@
         </div>
         <div class="mini-card">
           <div class="mini-card__title">Хайтейл-кликер</div>
-          <div class="mini-card__desc">HTML/CSS/JS, полный цикл от прототипа до релиза и прохождения модерации на Яндекс Играх за неделю вайб кодингом. Урок: при вайб кодинге многое хардкодится, и потом локализация становится больно.</div>
+          <div class="mini-card__desc">HTML/CSS/JS, полный цикл от прототипа до релиза и прохождения модерации на Яндекс Играх за неделю вайб-кодингом. Урок: при вайб-кодинге многое хардкодится, и потом локализация становится больно.</div>
           <a href="https://yandex.ru/games/app/454336?draft=true&lang=ru" target="_blank" class="mini-card__link">Играть <span class="arrow">&rarr;</span></a>
         </div>
         <div class="mini-card">
           <div class="mini-card__title">Кликер с Лабубу</div>
-          <div class="mini-card__desc">Unity, C# — <strong style="color:var(--lime)">500 DAU</strong>, работающий продукт с реальной аудиторией и аналитикой.</div>
+          <div class="mini-card__desc">Unity, C# — <strong style="color:var(--accent)">500 DAU</strong>, работающий продукт с реальной аудиторией и аналитикой, полностью сделанный с помощью вайб-кодинга.</div>
+          <a href="https://yandex.ru/games/app/415963?lang=ru" target="_blank" class="mini-card__link">Играть <span class="arrow">&rarr;</span></a>
         </div>
         <div class="mini-card">
-          <div class="mini-card__title">Роблокс-лайк конструктор</div>
-          <div class="mini-card__desc">Unity, C# — доработал готовый движок до игры-конструктора, где пользователи могут строить свои миры. Аналитика настроена.</div>
+          <div class="mini-card__title">Roblox-like игра</div>
+          <div class="mini-card__desc">Unity, C# — игра на вайб-кодинге с повторением стандартных Roblox-элементов.</div>
           <a href="https://yandex.ru/games/app/ukradi-99-nochei-ne-budi-olenia-474725?lang=ru" target="_blank" class="mini-card__link">Играть <span class="arrow">&rarr;</span></a>
         </div>
         <div class="mini-card">
           <div class="mini-card__title">2048 в Telegram</div>
-          <div class="mini-card__desc">Один из первых экспериментов с вайб кодингом — Mini App в Telegram.</div>
+          <div class="mini-card__desc">Один из первых экспериментов с вайб-кодингом — Mini App в Telegram.</div>
           <a href="https://t.me/ZOAB_GAME_BOT/birds2048" target="_blank" class="mini-card__link">Открыть <span class="arrow">&rarr;</span></a>
         </div>
       </div>
@@ -1057,7 +685,7 @@
   <section id="q2">
     <div class="wrap">
       <div class="q-header rv">
-        <div class="q-header__num">// Вопрос 02</div>
+        <div class="q-header__num">// Задание 02</div>
         <h2 class="q-header__title">MVP: AI-ассистент для соискателей</h2>
       </div>
 
@@ -1075,31 +703,19 @@
         <p>Telegram-бот — персональный радар вакансий. Мониторит источники, убирает дубли, классифицирует и каждое утро доставляет подборку 5–7 релевантных вакансий. Tinder-механика (свайп «интересно / пропуск») делает процесс быстрым. Геймификация: streak-счётчик дней подряд, бейджи за активность — всё это формирует привычку и превращает стрессовый поиск работы в простой ежедневный ритуал на 3–5 минут.</p>
 
         <h3>Проработка образа MVP, логика и дизайн</h3>
-        <p>Telegram-first, минимум UI. Онбординг — 7 вопросов за 2 минуты: специальность, уровень, формат, зарплата, город, навыки, время подборки. Дальше бот работает сам. Карточка вакансии компактная — всё в одном экране без скролла. Геймификация встроена в процесс: streak-счётчик (сколько дней подряд пользователь открывал подборку), бейджи за активность, вечерние напоминания если пропустил утреннюю подборку.</p>
+        <p>Telegram-first, минимум UI. Magic Onboarding (AI-профайлинг) — никакого ручного заполнения анкет. Пользователь просто отправляет боту PDF-резюме или ссылку на профиль. LLM сама вытаскивает специальность, грейд, стек и город. Пользователю остаётся только подтвердить данные одним кликом и указать желаемую зарплату. Дальше бот работает сам. Карточка вакансии компактная — всё в одном экране без скролла. Геймификация встроена в процесс: streak-счётчик (сколько дней подряд пользователь открывал подборку), бейджи за активность, вечерние напоминания если пропустил утреннюю подборку.</p>
       </div>
 
-      <h3 style="font-size:1.15rem;font-weight:700;margin-top:2.5rem;margin-bottom:.75rem" class="rv">Пользовательский сценарий</h3>
+      <h3 style="font-size:1.1rem;font-weight:700;margin-top:2rem;margin-bottom:.6rem" class="rv">Пользовательский сценарий</h3>
       <div class="flow rv">
-        <div class="flow__step">
-          <div class="flow__num">01</div>
-          <div class="flow__text">Онбординг — 7 вопросов за 2 минуты</div>
-        </div>
-        <div class="flow__step">
-          <div class="flow__num">02</div>
-          <div class="flow__text">Первые вакансии сразу</div>
-        </div>
-        <div class="flow__step">
-          <div class="flow__num">03</div>
-          <div class="flow__text">Утренняя подборка каждый день</div>
-        </div>
-        <div class="flow__step">
-          <div class="flow__num">04</div>
-          <div class="flow__text">Бот учится на свайпах и улучшает выдачу</div>
-        </div>
+        <div class="flow__step"><div class="flow__num">01</div><div class="flow__text">Magic Onboarding (скинь PDF)</div></div>
+        <div class="flow__step"><div class="flow__num">02</div><div class="flow__text">Первые вакансии сразу</div></div>
+        <div class="flow__step"><div class="flow__num">03</div><div class="flow__text">Утренняя подборка каждый день</div></div>
+        <div class="flow__step"><div class="flow__num">04</div><div class="flow__text">Бот учится на свайпах</div></div>
       </div>
 
       <div class="prose rv">
-        <p>Пользователь проходит онбординг, получает первые вакансии сразу. Каждое утро приходит подборка. За пару недель формируется привычка: 3–4 минуты утром. Бот учится на свайпах — если человек постоянно пропускает вакансии без зарплаты, перестаёт их показывать.</p>
+        <p>Пользователь отправляет файл с резюме, ИИ мгновенно формирует поисковый профиль, и пользователь получает первые вакансии сразу. Каждое утро приходит подборка. За пару недель формируется привычка: 3–4 минуты утром. Бот учится на свайпах — если человек постоянно пропускает вакансии без зарплаты, перестаёт их показывать.</p>
 
         <h3>Стек</h3>
         <div class="tags">
@@ -1107,35 +723,24 @@
           <span class="tag">Pyrogram</span>
           <span class="tag">hh.ru API</span>
           <span class="tag">LLM (классификация)</span>
+          <span class="tag">PDF Parsing (pdfplumber / PyPDF)</span>
           <span class="tag">Sentence Embeddings</span>
           <span class="tag">PostgreSQL</span>
-          <span class="tag--navy tag">Cursor / Claude Code</span>
+          <span class="tag">Amplitude / PostHog</span>
         </div>
 
         <h3>Сроки</h3>
-        <p>С учётом вайб кодинга — <span class="accent">2–3 недели</span> до рабочего MVP с тестом на бета-пользователях.</p>
+        <p>С учётом вайб-кодинга — <span class="accent">2–3 недели</span> до рабочего MVP с тестом на бета-пользователях.</p>
 
         <h3>Метрики</h3>
         <p>Трекаю события через Amplitude Free или PostHog: онбординг, открытие подборки, свайпы, стрики.</p>
       </div>
 
       <div class="metrics rv">
-        <div class="metric">
-          <div class="metric__val">25–40%</div>
-          <div class="metric__label">доля «интересно» от показанных</div>
-        </div>
-        <div class="metric">
-          <div class="metric__val">D1/D7/D30</div>
-          <div class="metric__label">retention по когортам</div>
-        </div>
-        <div class="metric">
-          <div class="metric__val">streak</div>
-          <div class="metric__label">средняя длина серии</div>
-        </div>
-        <div class="metric">
-          <div class="metric__val">&lt;20% D7</div>
-          <div class="metric__label">kill-метрика (после 200 рег.)</div>
-        </div>
+        <div class="metric"><div class="metric__val">25–40%</div><div class="metric__label">доля «интересно» от показанных</div></div>
+        <div class="metric"><div class="metric__val">D1/D7/D30</div><div class="metric__label">retention по когортам</div></div>
+        <div class="metric"><div class="metric__val">streak</div><div class="metric__label">средняя длина серии</div></div>
+        <div class="metric"><div class="metric__val">&lt;20% D7</div><div class="metric__label">kill-метрика (после 200 рег.)</div></div>
       </div>
 
       <div class="prose rv">
@@ -1148,34 +753,31 @@
   <section id="q3">
     <div class="wrap">
       <div class="q-header rv">
-        <div class="q-header__num">// Вопрос 03</div>
+        <div class="q-header__num">// Задание 03</div>
         <h2 class="q-header__title">Три AI-агента для повышения продуктивности CEO</h2>
       </div>
 
       <div class="agent-stack">
-
         <!-- Agent 1 -->
         <div class="agent rv" data-tilt>
-          <div class="agent__inner">
-            <div class="agent__head">
-              <div class="agent__icon agent__icon--1">&#128202;</div>
-              <div class="agent__title">Агент 1: Утренний брифинг по метрикам</div>
-            </div>
-            <div class="agent__body">
-              <p><strong>Что делает:</strong> каждое утро собирает ключевые метрики продуктов компании и выдаёт в Telegram структурированный отчёт. Не просто цифры, а контекст: «DAU упал на 12% за 3 дня, совпадает с обновлением v3.2, возможно баг». Сравнивает с целями, подсвечивает аномалии.</p>
-              <div class="agent__grid">
-                <div class="agent__detail">
-                  <div class="agent__detail-label">Данные</div>
-                  <div class="agent__detail-value">Amplitude, AppMetrica через API, App Store Connect, Google Play Console, внутренние таблицы</div>
-                </div>
-                <div class="agent__detail">
-                  <div class="agent__detail-label">Реализация</div>
-                  <div class="agent__detail-value">OpenClaw-агент с Skills под каждый источник. Запуск по расписанию. LLM для интерпретации и summary. MCP-коннекторы. Доставка через Telegram</div>
-                </div>
-                <div class="agent__detail" style="grid-column:1/-1">
-                  <div class="agent__detail-label">Польза</div>
-                  <div class="agent__detail-value">CEO начинает утро с готового анализа вместо разбора 5–7 дашбордов. Экономия 30–60 минут в день. Не пропустишь критическое падение</div>
-                </div>
+          <div class="agent__head">
+            <div class="agent__icon agent__icon--1">&#128202;</div>
+            <div class="agent__title">Агент 1: Утренний брифинг по метрикам</div>
+          </div>
+          <div class="agent__body">
+            <p><strong>Что делает:</strong> каждое утро собирает ключевые метрики продуктов компании и выдаёт в Telegram структурированный отчёт. Не просто цифры, а контекст: «DAU упал на 12% за 3 дня, совпадает с обновлением v3.2, возможно баг». Сравнивает с целями, подсвечивает аномалии.</p>
+            <div class="agent__grid">
+              <div class="agent__detail">
+                <div class="agent__detail-label">Данные</div>
+                <div class="agent__detail-value">Amplitude, AppMetrica через API, App Store Connect, Google Play Console, внутренние таблицы</div>
+              </div>
+              <div class="agent__detail">
+                <div class="agent__detail-label">Реализация</div>
+                <div class="agent__detail-value">OpenClaw-агент с Skills под каждый источник. Запуск по расписанию. LLM для интерпретации и summary. MCP-коннекторы. Доставка через Telegram</div>
+              </div>
+              <div class="agent__detail" style="grid-column:1/-1">
+                <div class="agent__detail-label">Польза</div>
+                <div class="agent__detail-value">CEO начинает утро с готового анализа вместо разбора 5–7 дашбордов. Экономия 30–60 минут в день. Не пропустишь критическое падение</div>
               </div>
             </div>
           </div>
@@ -1183,32 +785,28 @@
 
         <!-- Agent 2 -->
         <div class="agent rv rv-d1" data-tilt>
-          <div class="agent__inner">
-            <div class="agent__head">
-              <div class="agent__icon agent__icon--2">&#128176;</div>
-              <div class="agent__title">Агент 2: Анализ расходов и оптимизация</div>
+          <div class="agent__head">
+            <div class="agent__icon agent__icon--2">&#128176;</div>
+            <div class="agent__title">Агент 2: Анализ расходов и оптимизация</div>
+          </div>
+          <div class="agent__body">
+            <p><strong>Что делает:</strong> мониторит финансовые потоки: подписки на сервисы, инфраструктуру, маркетинговые бюджеты. Находит дублирующиеся подписки, неиспользуемые сервисы, аномальные всплески. Раз в неделю отчёт с рекомендациями.</p>
+            <p><strong>MVP:</strong> агент парсит данные о списаниях из загруженных вручную CSV-выписок (чтобы безопасно протестировать гипотезу без доступов к счетам) или подключается к read-only API сервисов, где есть все важные расходы. Затем он сопоставляет эти данные с данными об использовании сервисов (логины сотрудников, активность в инструментах через API). Если подписка оплачивается, но активности по ней нет — помечает как кандидата на отключение. Классифицирует расходы по категориям, показывает динамику, алертит при аномалиях.</p>
+            <button class="coll-trigger" onclick="toggleColl(this)">
+              <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+              Идеи на развитие
+            </button>
+            <div class="coll-body">
+              <p style="padding-top:.5rem">Анализ расходов на персонал и их целесообразности (сопоставление затрат с output), мониторинг unit-экономики продуктов (CAC, LTV, ROI каналов), алерты при превышении бюджетов.</p>
             </div>
-            <div class="agent__body">
-              <p><strong>Что делает:</strong> мониторит финансовые потоки: подписки на сервисы, инфраструктуру, маркетинговые бюджеты. Находит дублирующиеся подписки, неиспользуемые сервисы, аномальные всплески. Раз в неделю отчёт с рекомендациями.</p>
-              <p><strong>MVP:</strong> агент собирает все регулярные списания из банковских выписок, сопоставляет с данными об использовании сервисов (логины сотрудников, активность в инструментах через API). Если подписка оплачивается, но активности по ней нет — помечает как кандидата на отключение. Классифицирует расходы по категориям, показывает динамику, алертит при аномалиях.</p>
-
-              <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
-                <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-                Идеи на развитие
-              </button>
-              <div class="collapsible-body">
-                <p style="padding-top:.5rem">Анализ расходов на персонал и их целесообразности (сопоставление затрат с output), мониторинг unit-экономики продуктов (CAC, LTV, ROI каналов), алерты при превышении бюджетов.</p>
+            <div class="agent__grid" style="margin-top:.85rem">
+              <div class="agent__detail">
+                <div class="agent__detail-label">Реализация</div>
+                <div class="agent__detail-value">Python-сервис для сбора данных по расписанию. LLM для классификации и рекомендаций. Claude Agent SDK + MCP-коннекторы. Telegram для отчётов и алертов</div>
               </div>
-
-              <div class="agent__grid" style="margin-top:1rem">
-                <div class="agent__detail">
-                  <div class="agent__detail-label">Реализация</div>
-                  <div class="agent__detail-value">Python-сервис для сбора данных по расписанию. LLM для классификации и рекомендаций. Claude Agent SDK + MCP-коннекторы. Telegram для отчётов и алертов</div>
-                </div>
-                <div class="agent__detail">
-                  <div class="agent__detail-label">Польза</div>
-                  <div class="agent__detail-value">В компании с 100+ сотрудниками расходы легко «размазываются». Агент находит конкретные точки оптимизации</div>
-                </div>
+              <div class="agent__detail">
+                <div class="agent__detail-label">Польза</div>
+                <div class="agent__detail-value">В компании с 100+ сотрудниками расходы легко «размазываются». Агент находит конкретные точки оптимизации</div>
               </div>
             </div>
           </div>
@@ -1216,31 +814,28 @@
 
         <!-- Agent 3 -->
         <div class="agent rv rv-d2" data-tilt>
-          <div class="agent__inner">
-            <div class="agent__head">
-              <div class="agent__icon agent__icon--3">&#9889;</div>
-              <div class="agent__title">Агент 3: Командный бот CEO в Telegram</div>
-            </div>
-            <div class="agent__body">
-              <p><strong>Что делает:</strong> OpenClaw-бот в Telegram, через который CEO одним сообщением может поставить задачу сотруднику, отправить email, поставить напоминание, запросить статус проекта, найти информацию в базе знаний компании. Бот не просто пробрасывает команды в рабочие инструменты, а действует как полноценный ассистент: перед тем как назначить задачу, проверяет текущую загрузку исполнителя в трекере и календаре. Если человек перегружен, бот сам предупреждает об этом и предлагает альтернативу — переназначить на другого или сдвинуть дедлайн. То есть CEO не просто делегирует действие, а получает контекст для принятия решения.</p>
-              <div class="agent__grid">
-                <div class="agent__detail">
-                  <div class="agent__detail-label">Данные</div>
-                  <div class="agent__detail-value">Таск-трекер (Jira/Asana), корпоративная почта, календарь, база знаний (Notion/Confluence), контакты команды</div>
-                </div>
-                <div class="agent__detail">
-                  <div class="agent__detail-label">Реализация</div>
-                  <div class="agent__detail-value">OpenClaw Gateway + Telegram. Skills для каждого сервиса. Persistent memory. Мощная LLM для интерпретации свободных команд. Claude Agent SDK для сложных цепочек</div>
-                </div>
-                <div class="agent__detail" style="grid-column:1/-1">
-                  <div class="agent__detail-label">Польза</div>
-                  <div class="agent__detail-value">Задачи ставятся за секунды без открытия трекера. Письма отправляются без переключения контекста. Всё логируется в рабочих инструментах команды. Экономия 1–2 часа в день</div>
-                </div>
+          <div class="agent__head">
+            <div class="agent__icon agent__icon--3">&#9889;</div>
+            <div class="agent__title">Агент 3: Командный бот CEO в Telegram</div>
+          </div>
+          <div class="agent__body">
+            <p><strong>Что делает:</strong> OpenClaw-бот в Telegram, через который CEO одним сообщением может поставить задачу сотруднику, отправить email, поставить напоминание, запросить статус проекта, найти информацию в базе знаний компании. Бот не просто пробрасывает команды в рабочие инструменты, а действует как полноценный ассистент: перед тем как назначить задачу, проверяет текущую загрузку исполнителя в трекере и календаре. Если человек перегружен, бот сам предупреждает об этом и предлагает альтернативу — переназначить на другого или сдвинуть дедлайн. То есть CEO не просто делегирует действие, а получает контекст для принятия решения.</p>
+            <div class="agent__grid">
+              <div class="agent__detail">
+                <div class="agent__detail-label">Данные</div>
+                <div class="agent__detail-value">Таск-трекер (Jira/Asana), корпоративная почта, календарь, база знаний (Notion/Confluence), контакты команды</div>
+              </div>
+              <div class="agent__detail">
+                <div class="agent__detail-label">Реализация</div>
+                <div class="agent__detail-value">OpenClaw Gateway + Telegram. Skills для каждого сервиса. Persistent memory. Мощная LLM для интерпретации свободных команд. Claude Agent SDK для сложных цепочек</div>
+              </div>
+              <div class="agent__detail" style="grid-column:1/-1">
+                <div class="agent__detail-label">Польза</div>
+                <div class="agent__detail-value">Задачи ставятся за секунды без открытия трекера. Письма отправляются без переключения контекста. Всё логируется в рабочих инструментах команды. Экономия 1–2 часа в день</div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -1250,7 +845,7 @@
     <div class="wrap">
       <div class="footer__inner">
         <div class="footer__left">
-          <img src="Assets/me.png" alt="" class="footer__photo" width="28" height="28">
+          <img src="Assets/me.png" alt="" class="footer__photo" width="24" height="24">
           <div class="footer__text">Кожевников Артём &mdash; тестовое для <a href="https://studyworldmedia.com" target="_blank">StudyWorld</a></div>
         </div>
         <div class="footer__links">
@@ -1259,218 +854,142 @@
           <a href="https://spb.hh.ru/resume/b80b3ca9ff101fb3e20039ed1f616856674441" target="_blank">hh.ru</a>
         </div>
       </div>
+      <div class="footer__text" style="margin-top:.85rem">Спасибо за проверку тестового!</div>
     </div>
   </footer>
 
-  <!-- ═══════════════════════════════════════
-       JAVASCRIPT
-  ═══════════════════════════════════════ -->
   <script>
-  (function() {
+  (function(){
     'use strict';
 
-    // ── Particle constellation background ──
+    /* ── Theme toggle ── */
+    const html = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (saved) html.dataset.theme = saved;
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const next = html.dataset.theme === 'light' ? 'dark' : 'light';
+      html.dataset.theme = next;
+      localStorage.setItem('theme', next);
+    });
+
+    /* ── Particles ── */
     const canvas = document.getElementById('particleCanvas');
     const ctx = canvas.getContext('2d');
-    let particles = [];
-    let mouse = { x: -1000, y: -1000 };
-    const PARTICLE_COUNT = 80;
-    const CONNECT_DIST = 140;
-    const MOUSE_DIST = 180;
+    let pts = [], mouse = {x:-1e3,y:-1e3};
+    const N = 70, DIST = 130, MDIST = 170;
 
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+    function init(){
+      pts=[];
+      for(let i=0;i<N;i++) pts.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.2+.5});
     }
 
-    function createParticles() {
-      particles = [];
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - .5) * .4,
-          vy: (Math.random() - .5) * .4,
-          r: Math.random() * 1.5 + .5
-        });
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      const style = getComputedStyle(html);
+      const rgb = style.getPropertyValue('--particle-color').trim();
+      const opacity = parseFloat(style.getPropertyValue('--particle-opacity').trim());
+
+      for(let i=0;i<pts.length;i++){
+        const p=pts[i];
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0)p.x=canvas.width; if(p.x>canvas.width)p.x=0;
+        if(p.y<0)p.y=canvas.height; if(p.y>canvas.height)p.y=0;
+
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${rgb},${opacity})`;ctx.fill();
+
+        for(let j=i+1;j<pts.length;j++){
+          const q=pts[j],dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy);
+          if(d<DIST){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=`rgba(${rgb},${opacity*.5*(1-d/DIST)})`;ctx.lineWidth=.5;ctx.stroke();}
+        }
+
+        const mx=p.x-mouse.x,my=p.y-mouse.y,md=Math.sqrt(mx*mx+my*my);
+        if(md<MDIST){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(mouse.x,mouse.y);ctx.strokeStyle=`rgba(${rgb},${opacity*1.5*(1-md/MDIST)})`;ctx.lineWidth=.7;ctx.stroke();p.x+=mx*.004;p.y+=my*.004;}
       }
+      requestAnimationFrame(draw);
     }
+    resize();init();draw();
+    addEventListener('resize',()=>{resize();init();});
 
-    function drawParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    /* ── Custom cursor ── */
+    const cur=document.getElementById('cursor'),dot=document.getElementById('cursorDot');
+    let cx=-100,cy=-100,dx=-100,dy=-100;
+    document.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;dx=e.clientX;dy=e.clientY;dot.style.left=dx+'px';dot.style.top=dy+'px';});
+    (function anim(){cx+=(dx-cx)*.12;cy+=(dy-cy)*.12;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(anim)})();
 
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
+    document.querySelectorAll('a,button,.mini-card,.agent,.flow__step,.theme-toggle,.magnetic').forEach(el=>{
+      el.addEventListener('mouseenter',()=>cur.classList.add('hover'));
+      el.addEventListener('mouseleave',()=>cur.classList.remove('hover'));
+    });
 
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
+    /* ── Magnetic buttons ── */
+    document.querySelectorAll('.magnetic').forEach(btn=>{
+      btn.addEventListener('mousemove',e=>{
+        const r=btn.getBoundingClientRect();
+        const x=(e.clientX-r.left-r.width/2)*.25;
+        const y=(e.clientY-r.top-r.height/2)*.25;
+        btn.style.transform=`translate(${x}px,${y}px)`;
+      });
+      btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
+    });
 
-        // Draw dot
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(208,225,0,.15)';
-        ctx.fill();
+    /* ── Scroll bar + nav ── */
+    const bar=document.getElementById('scrollProgress'), nav=document.getElementById('nav');
+    let lastY=0,tick=false;
+    const secs=document.querySelectorAll('section[id]'), navAs=document.querySelectorAll('.nav__links a');
 
-        // Connect nearby particles
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < CONNECT_DIST) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(208,225,0,${.06 * (1 - dist / CONNECT_DIST)})`;
-            ctx.lineWidth = .5;
-            ctx.stroke();
+    addEventListener('scroll',()=>{
+      if(!tick){requestAnimationFrame(()=>{
+        const h=document.documentElement.scrollHeight-innerHeight;
+        bar.style.width=(scrollY/h*100)+'%';
+        nav.classList.toggle('hide',scrollY>lastY&&scrollY>100);
+        lastY=scrollY;
+        const sy=scrollY+200;
+        secs.forEach(s=>{
+          if(sy>=s.offsetTop&&sy<s.offsetTop+s.offsetHeight){
+            navAs.forEach(a=>a.classList.remove('active'));
+            const a=document.querySelector(`.nav__links a[href="#${s.id}"]`);
+            if(a)a.classList.add('active');
           }
-        }
-
-        // Mouse interaction
-        const mdx = p.x - mouse.x;
-        const mdy = p.y - mouse.y;
-        const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
-        if (mDist < MOUSE_DIST) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(208,225,0,${.15 * (1 - mDist / MOUSE_DIST)})`;
-          ctx.lineWidth = .8;
-          ctx.stroke();
-
-          // Subtle repel
-          p.x += mdx * .005;
-          p.y += mdy * .005;
-        }
-      }
-
-      requestAnimationFrame(drawParticles);
-    }
-
-    resize();
-    createParticles();
-    drawParticles();
-    window.addEventListener('resize', () => { resize(); createParticles(); });
-
-
-    // ── Custom cursor ──
-    const cursor = document.getElementById('cursor');
-    const cursorDot = document.getElementById('cursorDot');
-    let cx = -100, cy = -100, dx = -100, dy = -100;
-
-    document.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      dx = e.clientX;
-      dy = e.clientY;
-      cursorDot.style.left = dx + 'px';
-      cursorDot.style.top = dy + 'px';
-    });
-
-    function animateCursor() {
-      cx += (dx - cx) * .15;
-      cy += (dy - cy) * .15;
-      cursor.style.left = cx + 'px';
-      cursor.style.top = cy + 'px';
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    // Hover state on interactive elements
-    document.querySelectorAll('a, button, .mini-card, .agent, .flow__step').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
-    });
-
-
-    // ── Scroll progress ──
-    const bar = document.getElementById('scrollProgress');
-    function updateProgress() {
-      const h = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.width = (window.scrollY / h * 100) + '%';
-    }
-
-
-    // ── Nav hide/show ──
-    const nav = document.getElementById('nav');
-    let lastY = 0;
-    function updateNav() {
-      const y = window.scrollY;
-      nav.classList.toggle('hide', y > lastY && y > 100);
-      lastY = y;
-    }
-
-    // Active link
-    const secs = document.querySelectorAll('section[id]');
-    const navAs = document.querySelectorAll('.nav__links a');
-    function updateActive() {
-      const sy = window.scrollY + 200;
-      secs.forEach(s => {
-        if (sy >= s.offsetTop && sy < s.offsetTop + s.offsetHeight) {
-          navAs.forEach(a => a.classList.remove('active'));
-          const a = document.querySelector(`.nav__links a[href="#${s.id}"]`);
-          if (a) a.classList.add('active');
-        }
-      });
-    }
-
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          updateProgress();
-          updateNav();
-          updateActive();
-          ticking = false;
         });
-        ticking = true;
-      }
+        tick=false;
+      });tick=true;}
     });
 
+    /* ── Burger ── */
+    const burger=document.getElementById('burger'),nl=document.getElementById('navLinks');
+    burger.addEventListener('click',()=>nl.classList.toggle('open'));
+    nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nl.classList.remove('open')));
 
-    // ── Mobile burger ──
-    const burger = document.getElementById('burger');
-    const navLinks = document.getElementById('navLinks');
-    burger.addEventListener('click', () => navLinks.classList.toggle('open'));
-    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+    /* ── Reveal observer ── */
+    const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+    document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 
+    /* ── 3D tilt ── */
+    document.querySelectorAll('[data-tilt]').forEach(c=>{
+      c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(800px) rotateY(${x*5}deg) rotateX(${-y*5}deg) scale(1.005)`;});
+      c.addEventListener('mouseleave',()=>{c.style.transform='';});
+    });
 
-    // ── Intersection observer reveals ──
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-    }, { threshold: .08, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('.rv').forEach(el => obs.observe(el));
-
-
-    // ── 3D Tilt on agent cards ──
-    document.querySelectorAll('[data-tilt]').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - .5;
-        const y = (e.clientY - rect.top) / rect.height - .5;
-        card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) scale(1.01)`;
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(800px) rotateY(0) rotateX(0) scale(1)';
+    /* ── Text scramble on hover (section titles) ── */
+    const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&';
+    document.querySelectorAll('.q-header__title').forEach(el=>{
+      const original=el.textContent;
+      el.addEventListener('mouseenter',()=>{
+        let iter=0;
+        const interval=setInterval(()=>{
+          el.textContent=original.split('').map((c,i)=>i<iter?original[i]:chars[Math.floor(Math.random()*chars.length)]).join('');
+          iter+=1.5;
+          if(iter>=original.length){el.textContent=original;clearInterval(interval);}
+        },30);
       });
     });
 
-    updateProgress();
   })();
 
-
-  // ── Collapsible sections ──
-  function toggleCollapsible(trigger) {
-    trigger.classList.toggle('open');
-    const body = trigger.nextElementSibling;
-    body.classList.toggle('open');
-  }
+  function toggleColl(t){t.classList.toggle('open');t.nextElementSibling.classList.toggle('open');}
   </script>
 </body>
 </html>
